@@ -1,6 +1,5 @@
 #pragma once
 
-
 const int N = 50; //Numnber of genes
 const int P = 50; //population 
 const int GENERATIONS = 50;
@@ -13,3 +12,4 @@ typedef struct {
 } individual;
 
 
+void RunGeneticAlgorithm();

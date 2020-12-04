@@ -20,12 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneticAlgorithm.h" />
-    <ClInclude Include="VisualisationHelper.h" />
+    <ClInclude Include="HelperBasicIO.h" />
+    <ClInclude Include="HelperDisplayGA.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneticAlgorithm.cpp" />
+    <ClCompile Include="HelperBasicIO.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="VisualisationHelper.cpp" />
+    <ClCompile Include="HelperDisplayGA.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
