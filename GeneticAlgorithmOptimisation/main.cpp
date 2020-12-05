@@ -11,11 +11,12 @@
 
 int main()
 {
+
 	PrintLine("Running basic GA with Roulette wheel selection...");
 	RunGeneticAlgorithm(ROULETTE);
 
-	PrintLine("Running basic GA with Tournament wheel selection...");
-	RunGeneticAlgorithm(TOURNAMENT);
+	//PrintLine("Running basic GA with Tournament wheel selection...");
+	//RunGeneticAlgorithm(TOURNAMENT);
 
 
 

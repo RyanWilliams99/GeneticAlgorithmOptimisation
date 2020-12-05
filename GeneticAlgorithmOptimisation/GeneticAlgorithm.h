@@ -16,3 +16,12 @@ enum SelectionType {ROULETTE, TOURNAMENT};
 
 
 void RunGeneticAlgorithm(SelectionType slectionType);
+
+typedef struct {
+	int generation;
+	float bestFitness;
+	float meanFitness;
+} GAResult;
+
+std::vector<GAResult> result;
+

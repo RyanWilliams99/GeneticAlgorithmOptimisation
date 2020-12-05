@@ -43,9 +43,12 @@ float GetPopulationFitness(individual population[])
 	//std::cout << ") Total Fitness - " << t << std::endl;
 }
 
-void RunGeneticAlgorithm(SelectionType selectionType)
+
+std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
 {
 	
+	std::vector<GAResult> returnValue;
+
 	srand(time(NULL));
 	std::cout << std::setprecision(4);
 
@@ -64,9 +67,15 @@ void RunGeneticAlgorithm(SelectionType selectionType)
 	}
 
 	//main loop
-	for (int generation = 0; generation < GENERATIONS; ++generation) {
+	for (int i = 0; i < GENERATIONS; ++i) {
 
-		std::cout << "--------------------------------------------------------------Generation" << generation + 1 << "-------------------------------------------------------" << std::endl;
+		GAResult currrentGeneration;
+
+		currrentGeneration.generation = i + 1;
+		currrentGeneration.bestFitness;
+
+
+		std::cout << "--------------------------------------------------------------Generation" << i + 1 << "-------------------------------------------------------" << std::endl;
 
 		//Get fitness values for each individual
 		for (int i = 0; i < P; i++)
@@ -80,6 +89,10 @@ void RunGeneticAlgorithm(SelectionType selectionType)
 
 		float totalPopFitness = GetPopulationFitness(population);
 
+		
+
+
+		//Selection
 		switch (selectionType)
 		{
 		case ROULETTE:
@@ -150,8 +163,21 @@ void RunGeneticAlgorithm(SelectionType selectionType)
 			population[i] = offspring[i];
 		}
 
+
+
 	}
 
-	return;
+	
+
+
 
 }
+
+
+
+void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
+{
+	RunGeneticAlgorithm(selectionType);
+}
+
+
