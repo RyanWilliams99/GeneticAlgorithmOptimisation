@@ -19,19 +19,33 @@ float RandomFloat(float min, float max) {
 float GenerateFitnessValues(individual ind)
 {
 	float fitness = 0;
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < N; i++)
 		fitness = fitness + ind.gene[i];
-	}
 	return fitness;
-
 }
 
 
-void RunGeneticAlgorithm()
+float GetPopulationFitness(individual population[])
 {
-	//First of all set population size number of generations 
-	//Run GA and output
+	float t = 0;
 
+	//std::cout << "( ";
+
+	for (int i = 0; i < P; i++)
+	{
+		//std::cout << "" << population[i].fitness << " ";
+
+		t = t + population[i].fitness;
+
+	}
+
+	return t;
+	//std::cout << ") Total Fitness - " << t << std::endl;
+}
+
+void RunGeneticAlgorithm(SelectionType selectionType)
+{
+	
 	srand(time(NULL));
 	std::cout << std::setprecision(4);
 
@@ -49,13 +63,8 @@ void RunGeneticAlgorithm()
 		population[i].fitness = 0;
 	}
 
-	std::cout << "Initial Genes" << std::endl;
-	PrintPopulationGenes(population);
-
-	//5 Generations
+	//main loop
 	for (int generation = 0; generation < GENERATIONS; ++generation) {
-
-
 
 		std::cout << "--------------------------------------------------------------Generation" << generation + 1 << "-------------------------------------------------------" << std::endl;
 
@@ -68,16 +77,42 @@ void RunGeneticAlgorithm()
 		std::cout << "Population" << std::endl;
 		PrintPopulationFitness(population);
 
-		//Selection
-		for (int i = 0; i < P; i++) {
-			int parent1 = rand() % P;
-			int parent2 = rand() % P;
-			if (population[parent1].fitness > population[parent2].fitness)
-				offspring[i] = population[parent1];
-			else
-				offspring[i] = population[parent2];
-		}
 
+		float totalPopFitness = GetPopulationFitness(population);
+
+		switch (selectionType)
+		{
+		case ROULETTE:
+			//roulette
+			for (int i = 0; i < P; i++) {
+				//int selection_point = static_cast<int>(rand() % static_cast<int>(totalPopFitness));
+
+				int selection_point = RandomFloat(0, totalPopFitness);
+
+				
+				float running_total = 0;
+				int j = 0;
+				while (running_total <= selection_point) {
+					running_total += population[j].fitness;
+					j++;
+				}
+				offspring[i] = population[j - 1];
+			}
+			break;
+		case TOURNAMENT:
+			//tournament
+			for (int i = 0; i < P; i++) {
+				int parent1 = rand() % P;
+				int parent2 = rand() % P;
+				if (population[parent1].fitness > population[parent2].fitness)
+					offspring[i] = population[parent1];
+				else
+					offspring[i] = population[parent2];
+			}
+			break;
+		default:
+			break;
+		}
 
 		//Crossover
 		individual temp;
@@ -106,17 +141,6 @@ void RunGeneticAlgorithm()
 		}
 
 
-		////Mutation old
-		//for (int i = 0; i < P; i++) {
-		//	for (int j = 0; j < N; j++) {
-		//		if (rand() < MUTRATE) {
-		//			if (offspring[i].gene[j] == 1) offspring[i].gene[j] = 0;
-		//			else offspring[i].gene[j] = 1;
-		//		}
-		//	}
-		//}
-
-
 		std::cout << "Offspring" << std::endl;
 		PrintPopulationFitness(offspring);
 
@@ -127,9 +151,6 @@ void RunGeneticAlgorithm()
 		}
 
 	}
-
-	//std::cout << "Final Genes" << std::endl;
-	//PrintPopulationGenes(population);
 
 	return;
 
