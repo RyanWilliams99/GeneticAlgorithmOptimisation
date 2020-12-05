@@ -5,6 +5,8 @@
 #include <vector>
 #include <utility> // std::pair
 
+#include "GeneticAlgorithm.h"
+
 void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset) {
     // Make a CSV file with one or more columns of integer values
     // Each column of data is represented by the pair <column name, column data>
@@ -36,5 +38,71 @@ void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vect
 
     // Close the file
     myFile.close();
+
 }
+
+
+void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResult> gaResult)
+{
+
+	// current date/time based on current system
+	time_t now = time(0);
+
+	// convert now to string form
+	//char* dt = ctime(&now);
+
+
+
+
+	// Make three vectors, each of length 100 filled with 1s, 2s, and 3s
+	std::vector<int> generation;
+	std::vector<int> meanFitness;
+	std::vector<int> bestFitness;
+
+	for (size_t i = 0; i < gaResult.size(); i++)
+	{
+		generation.push_back(gaResult[i].generation);
+		meanFitness.push_back(gaResult[i].meanFitness);
+		bestFitness.push_back(gaResult[i].bestFitness);
+
+	}
+
+
+	//Generation //Mean fitness //Best fitness
+
+
+	time_t timer;
+	struct tm y2k = { 0 };
+	double seconds;
+
+	y2k.tm_hour = 0;   y2k.tm_min = 0; y2k.tm_sec = 0;
+	y2k.tm_year = 100; y2k.tm_mon = 0; y2k.tm_mday = 1;
+
+	time(&timer);  /* get current time; same as: timer = time(NULL)  */
+
+	seconds = difftime(timer, mktime(&y2k));
+
+
+
+	// Wrap into a vector
+	std::vector<std::pair<std::string, std::vector<int>>> vals = { {"Generation", generation}, {"Mean Fitness", meanFitness}, {"Best Fitness", bestFitness} };
+
+	std::string pathAndFilename;
+
+	switch (selectionType)
+	{
+	case ROULETTE:
+
+		pathAndFilename = "../Output/" + std::to_string(seconds) + "Roulette.csv";
+		break;
+	case TOURNAMENT:
+		pathAndFilename = "../Output/" + std::to_string(seconds) + "Tournament.csv";
+		break;
+	default:
+		break;
+	}
+
+	WriteCSV(pathAndFilename, vals);
+}
+
 
