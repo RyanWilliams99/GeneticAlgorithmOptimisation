@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="GeneticAlgorithm.h" />
     <ClInclude Include="HelperBasicIO.h" />
+    <ClInclude Include="HelperCSV.h" />
     <ClInclude Include="HelperDisplayGA.h" />
   </ItemGroup>
   <ItemGroup>

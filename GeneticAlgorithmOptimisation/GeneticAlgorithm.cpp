@@ -6,7 +6,7 @@
 
 #include "HelperDisplayGA.h"
 #include "GeneticAlgorithm.h"
-
+#include "HelperCSV.h"
 
 
 float RandomFloat(float min, float max) {
@@ -223,6 +223,39 @@ void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
 
 	gaResult = RunGeneticAlgorithm(selectionType);
 
-	gaResult = RunGeneticAlgorithm(selectionType);
+	// current date/time based on current system
+	time_t now = time(0);
+
+	// convert now to string form
+	char* dt = ctime(&now);
+
+
+
+
+	// Make three vectors, each of length 100 filled with 1s, 2s, and 3s
+	std::vector<int> generation;
+	std::vector<int> meanFitness;
+	std::vector<int> bestFitness;
+
+	for (size_t i = 0; i < gaResult.size(); i++)
+	{
+		generation.push_back(gaResult[i].generation);
+		meanFitness.push_back(gaResult[i].meanFitness);
+		bestFitness.push_back(gaResult[i].bestFitness);
+
+	}
+
+
+	//Generation //Mean fitness //Best fitness
+
+
+	// Wrap into a vector
+	std::vector<std::pair<std::string, std::vector<int>>> vals = { {"Generation", generation}, {"Mean Fitness", meanFitness}, {"Best Fitness", bestFitness} };
+
+
+
+
+	WriteCSV("tste.csv", vals);
+
 
 }
