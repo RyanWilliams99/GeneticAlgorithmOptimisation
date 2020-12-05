@@ -2,7 +2,7 @@
 
 #include "GeneticAlgorithm.h"
 
-void PrintPopulationFitness(individual population[]);
+void PrintPopulationFitness(Individual population[]);
 
-void PrintPopulationGenes(individual population[]);
+void PrintPopulationGenes(Individual population[]);
 

@@ -16,7 +16,7 @@ float RandomFloat(float min, float max) {
 	return min + r;
 }
 
-float GenerateFitnessValues(individual ind)
+float GenerateFitnessValues(Individual ind)
 {
 	float fitness = 0;
 	for (int i = 0; i < N; i++)
@@ -25,7 +25,7 @@ float GenerateFitnessValues(individual ind)
 }
 
 
-float GetPopulationFitness(individual population[])
+float GetPopulationFitness(Individual population[])
 {
 	float t = 0;
 
@@ -44,19 +44,56 @@ float GetPopulationFitness(individual population[])
 }
 
 
-std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
+float GetBestFitnessInPopulation(Individual pop[])
 {
-	
-	std::vector<GAResult> returnValue;
+	float returnValue = 0.0f;
+	for (size_t i = 0; i < P; i++)
+	{
+		if (pop[i].fitness > returnValue)
+			returnValue = pop[i].fitness;
+	}
+	return returnValue;
+}
+
+float GetMeanFitnessInPopulation(Individual pop[])
+{
+	float returnValue = 0.0f;
+	for (size_t i = 0; i < P; i++)
+	{
+		if (pop[i].fitness > returnValue)
+			returnValue += pop[i].fitness;
+	}
+	return returnValue / P;
+}
+
+
+/// <summary>
+/// Runs a GA
+/// </summary>
+/// <param name="selectionType">
+/// enum defined in GeneticAlgorithm.h
+/// </param>
+/// <returns>
+/// Returns a list of GenerationResult objects, each one contains the mean and best fitness values
+/// </returns>
+std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
+{
+	//Return a list of GA results
+	std::vector<GenerationResult> returnValue;
+
+	//GA Result contains every generation and its mean fitness
+
+
 
 	srand(time(NULL));
 	std::cout << std::setprecision(4);
 
-	individual population[P];
-	individual offspring[P];
+	Individual population[P];
+	Individual offspring[P];
 
-
-	//Create initial population
+	/////////////////////////////
+	//Create initial population//
+	/////////////////////////////
 	for (int i = 0; i < P; i++)
 	{
 		for (int j = 0; j < N; j++)
@@ -66,13 +103,15 @@ std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
 		population[i].fitness = 0;
 	}
 
-	//main loop
+	/////////////
+	//main loop//
+	/////////////
 	for (int i = 0; i < GENERATIONS; ++i) {
 
-		GAResult currrentGeneration;
+		GenerationResult currrentGeneration{ };
 
 		currrentGeneration.generation = i + 1;
-		currrentGeneration.bestFitness;
+		
 
 
 		std::cout << "--------------------------------------------------------------Generation" << i + 1 << "-------------------------------------------------------" << std::endl;
@@ -91,12 +130,12 @@ std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
 
 		
 
-
-		//Selection
+		/////////////
+		//Selection//
+		/////////////
 		switch (selectionType)
 		{
 		case ROULETTE:
-			//roulette
 			for (int i = 0; i < P; i++) {
 				//int selection_point = static_cast<int>(rand() % static_cast<int>(totalPopFitness));
 
@@ -113,7 +152,6 @@ std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
 			}
 			break;
 		case TOURNAMENT:
-			//tournament
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
 				int parent2 = rand() % P;
@@ -127,8 +165,10 @@ std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
 			break;
 		}
 
-		//Crossover
-		individual temp;
+		/////////////
+		//Crossover//
+		/////////////
+		Individual temp;
 		for (int i = 0; i < P; i += 2)
 		{
 			temp = offspring[i];
@@ -139,7 +179,9 @@ std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
 			}
 		}
 
-		//Mutation
+		////////////
+		//Mutation//
+		////////////
 		for (int i = 0; i < P; i++)
 		{
 			for (int j = 0; j < N; j++)
@@ -153,31 +195,34 @@ std::vector<GAResult> RunGeneticAlgorithm(SelectionType selectionType)
 			}
 		}
 
+		//////////////////////////////////////
+		//Calculate and store fitness values//
+		//////////////////////////////////////
+		currrentGeneration.bestFitness = GetBestFitnessInPopulation(population);
+		currrentGeneration.meanFitness = GetMeanFitnessInPopulation(population);
 
-		std::cout << "Offspring" << std::endl;
-		PrintPopulationFitness(offspring);
+		returnValue.push_back(currrentGeneration);
 
-		//Copy offspring to population
+		/////////////////////
+		//Update Population//
+		/////////////////////
 		for (int i = 0; i < P; i++)
-		{
 			population[i] = offspring[i];
-		}
-
-
-
+		
+		
 	}
-
-	
-
-
-
+	return returnValue;
 }
-
 
 
 void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
 {
-	RunGeneticAlgorithm(selectionType);
+	
+	std::vector<GenerationResult> gaResult;
+
+
+	gaResult = RunGeneticAlgorithm(selectionType);
+
+	gaResult = RunGeneticAlgorithm(selectionType);
+
 }
-
-

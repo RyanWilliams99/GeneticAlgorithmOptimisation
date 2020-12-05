@@ -1,19 +1,20 @@
 #pragma once
 
-
+#include <vector>
 
 
 const int N = 50; //Numnber of genes
-const int P = 10; //population 
-const int GENERATIONS = 10;
-const float MUTRATE = 0.2;
+const int P = 10; //Population 
+const int GENERATIONS = 50; //Generations
+const float MUTRATE = 0.2; 
 const float MUTSTEP = 1.0;
+
 
 //Each individual
 typedef struct {
 	float gene[N];
 	float fitness;
-} individual;
+} Individual;
 
 //Each generation
 typedef struct {
@@ -22,13 +23,14 @@ typedef struct {
 	float meanFitness;
 } GenerationResult;
 
-typedef struct {
-	//TODO
-} GAResult;
-
+//typedef struct {
+//	GenerationResult GenerationResults[];
+//} GAResult;
 
 
 enum SelectionType { ROULETTE, TOURNAMENT };
 
-void RunGeneticAlgorithm(SelectionType slectionType);
+std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType);
+
 void RunGeneticAlgorithmWithLogging(SelectionType slectionType);
+

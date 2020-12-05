@@ -2,7 +2,7 @@
 
 #include "GeneticAlgorithm.h"
 
-void PrintPopulationGenes(individual population[])
+void PrintPopulationGenes(Individual population[])
 {
 
 	for (int i = 0; i < P; i++)
@@ -19,7 +19,7 @@ void PrintPopulationGenes(individual population[])
 	}
 }
 
-void PrintPopulationFitness(individual population[])
+void PrintPopulationFitness(Individual population[])
 {
 	float t = 0;
 

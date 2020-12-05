@@ -13,7 +13,7 @@ int main()
 {
 
 	PrintLine("Running basic GA with Roulette wheel selection...");
-	RunGeneticAlgorithm(ROULETTE);
+	RunGeneticAlgorithmWithLogging(ROULETTE);
 
 	//PrintLine("Running basic GA with Tournament wheel selection...");
 	//RunGeneticAlgorithm(TOURNAMENT);
