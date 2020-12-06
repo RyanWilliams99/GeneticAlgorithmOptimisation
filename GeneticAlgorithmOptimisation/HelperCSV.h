@@ -6,6 +6,7 @@
 #include <utility> // std::pair
 
 #include "GeneticAlgorithm.h"
+#include "HelperBasicIO.h"
 
 void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vector<float>>> dataset) {
     // Make a CSV file with one or more columns of integer values
@@ -111,3 +112,13 @@ void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResul
 }
 
 
+void PrintGAResultToConsole(SelectionType selectionType, std::vector<GenerationResult> gaResult)
+{
+
+	PrintLine("Gen | Mean Fit | Best Fit");
+	for (size_t i = 0; i < gaResult.size(); i++)
+	{
+		printf("%2.3d | %8.4f | %8.4f \n", gaResult[i].generation, gaResult[i].meanFitness, gaResult[i].bestFitness);
+	}
+	PrintLine("\n");
+}

@@ -3,10 +3,12 @@
 #include <vector>
 
 
-const int N = 5; //Numnber of genes
-const int P = 10; //Population 
+const int N = 50; //Numnber of genes
+const int P = 50; //Population 
 const int GENERATIONS = 50; //Generations
 const float MUTRATE = 0.2; 
+const float MINGENEVALUE = -5.12f;
+const float MAXGENEVALUE = 5.12f;
 const float MUTSTEP = 1.0;
 
 

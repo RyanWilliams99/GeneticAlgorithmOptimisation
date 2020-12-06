@@ -28,12 +28,18 @@ float GenerateFitnessValues(Individual ind)
 float GenerateFitnessValuesWorkSheet3(Individual ind)
 {
 
+	float fitness = 0;
 
-
-	//float fitness = 0;
+	
 	//for (int i = 0; i < N; i++)
 	//	fitness = fitness + ind.gene[i];
-	//return fitness;
+
+
+
+
+
+
+	return fitness;
 }
 
 
@@ -98,7 +104,17 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 
 	//GA Result contains every generation and its mean fitness
 
-
+	switch (selectionType)
+	{
+	case ROULETTE:
+		PrintLine("Running basic GA with Roulette selection...");
+		break;
+	case TOURNAMENT:
+		PrintLine("Running basic GA with Tournament selection (theoritical max fitness ...");
+		break;
+	default:
+		break;
+	}
 
 	srand(time(NULL));
 	std::cout << std::setprecision(4);
@@ -113,7 +129,7 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 	{
 		for (int j = 0; j < N; j++)
 		{
-			population[i].gene[j] = RandomFloat(0.0, MUTSTEP);
+			population[i].gene[j] = RandomFloat(MINGENEVALUE, MAXGENEVALUE);
 		}
 		population[i].fitness = 0;
 	}
@@ -129,7 +145,7 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 		
 
 
-		std::cout << "--------------------------------------------------------------Generation" << i + 1 << "-------------------------------------------------------" << std::endl;
+		//std::cout << "--------------------------------------------------------------Generation" << i + 1 << "-------------------------------------------------------" << std::endl;
 
 		//Get fitness values for each individual
 		for (int i = 0; i < P; i++)
@@ -137,8 +153,8 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 			population[i].fitness = GenerateFitnessValues(population[i]);
 		}
 
-		std::cout << "Population" << std::endl;
-		PrintPopulationFitness(population);
+		//std::cout << "Population" << std::endl;
+		//PrintPopulationFitness(population);
 
 
 		float totalPopFitness = GetPopulationFitness(population);
@@ -236,5 +252,8 @@ void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
 	std::vector<GenerationResult> gaResult;
 	gaResult = RunGeneticAlgorithm(selectionType);
 	WriteGAResultToCSV(selectionType, gaResult);
+	PrintGAResultToConsole(selectionType, gaResult);
+
+
 
 }
