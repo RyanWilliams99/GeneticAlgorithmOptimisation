@@ -25,6 +25,11 @@ float GenerateFitnessValues(Individual ind)
 }
 
 
+
+
+
+
+
 float GetPopulationFitness(Individual population[])
 {
 	float t = 0;
@@ -60,8 +65,7 @@ float GetMeanFitnessInPopulation(Individual pop[])
 	float returnValue = 0.0f;
 	for (size_t i = 0; i < P; i++)
 	{
-		if (pop[i].fitness > returnValue)
-			returnValue += pop[i].fitness;
+		returnValue += pop[i].fitness;
 	}
 	return returnValue / P;
 }
@@ -221,6 +225,5 @@ void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
 	std::vector<GenerationResult> gaResult;
 	gaResult = RunGeneticAlgorithm(selectionType);
 	WriteGAResultToCSV(selectionType, gaResult);
-
 
 }

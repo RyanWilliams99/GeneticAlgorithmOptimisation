@@ -7,7 +7,7 @@
 
 #include "GeneticAlgorithm.h"
 
-void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vector<int>>> dataset) {
+void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vector<float>>> dataset) {
     // Make a CSV file with one or more columns of integer values
     // Each column of data is represented by the pair <column name, column data>
     //   as std::pair<std::string, std::vector<int>>
@@ -51,13 +51,10 @@ void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResul
 	// convert now to string form
 	//char* dt = ctime(&now);
 
-
-
-
 	// Make three vectors, each of length 100 filled with 1s, 2s, and 3s
-	std::vector<int> generation;
-	std::vector<int> meanFitness;
-	std::vector<int> bestFitness;
+	std::vector<float> generation;
+	std::vector<float> meanFitness;
+	std::vector<float> bestFitness;
 
 	for (size_t i = 0; i < gaResult.size(); i++)
 	{
@@ -85,7 +82,15 @@ void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResul
 
 
 	// Wrap into a vector
-	std::vector<std::pair<std::string, std::vector<int>>> vals = { {"Generation", generation}, {"Mean Fitness", meanFitness}, {"Best Fitness", bestFitness} };
+
+	std::pair<std::string, std::vector<float>> val1 = { "Generation", generation };
+	std::pair<std::string, std::vector<float>> val2 = { "Mean Fitness", meanFitness };
+	std::pair<std::string, std::vector<float>> val3 = { "Best Fitness", bestFitness };
+
+
+
+	std::vector<std::pair<std::string, std::vector<float>>> vals = { val1, val2, val3 };
+
 
 	std::string pathAndFilename;
 
