@@ -43,9 +43,15 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 }
 
 
+float GetMinimumPossibleFitness()
+{
+	return N * MINGENEVALUE;
+}
 
-
-
+float GetMaximumPossibleFitness()
+{
+	return N * MAXGENEVALUE;
+}
 
 float GetPopulationFitness(Individual population[])
 {
@@ -107,10 +113,11 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 	switch (selectionType)
 	{
 	case ROULETTE:
-		PrintLine("Running basic GA with Roulette selection...");
+		printf("Running basic GA with Roulette wheel selection (theoritical max fitness %8.2f)...\n", GetMaximumPossibleFitness(), GetMinimumPossibleFitness());
+
 		break;
 	case TOURNAMENT:
-		PrintLine("Running basic GA with Tournament selection (theoritical max fitness ...");
+		printf("Running basic GA with Tournament selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", GetMaximumPossibleFitness(), GetMinimumPossibleFitness());
 		break;
 	default:
 		break;
