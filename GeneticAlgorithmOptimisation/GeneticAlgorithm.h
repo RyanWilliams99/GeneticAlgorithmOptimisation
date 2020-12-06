@@ -3,7 +3,7 @@
 #include <vector>
 
 
-const int N = 50; //Numnber of genes
+const int N = 10; //Numnber of genes
 const int P = 50; //Population 
 const int GENERATIONS = 50; //Generations
 const float MUTRATE = 0.2; 

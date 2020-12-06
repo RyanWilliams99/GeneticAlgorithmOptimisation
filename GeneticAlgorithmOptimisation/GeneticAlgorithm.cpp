@@ -3,6 +3,7 @@
 #include <time.h>
 #include <random>
 #include <iomanip>
+#include <math.h>
 
 #include "HelperDisplayGA.h"
 #include "GeneticAlgorithm.h"
@@ -30,14 +31,26 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 
 	float fitness = 0;
 
-	
+	fitness += 10 * N;
+
+	float x = 0.0f;
+
+	float sum = 0.0f;
+
+	float pie = atan(1) * 4;
+
+	for (size_t i = 1; i < N + 1; i++)
+	{
+		x = ind.gene[i];
+
+		sum += (x * x) - 10 * cos(2 * pie * x);
+
+	}
+
+	fitness += sum;
+
 	//for (int i = 0; i < N; i++)
 	//	fitness = fitness + ind.gene[i];
-
-
-
-
-
 
 	return fitness;
 }
@@ -146,16 +159,12 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 		//Get fitness values for each individual
 		for (int i = 0; i < P; i++)
 		{
-			population[i].fitness = GenerateFitnessValues(population[i]);
+			population[i].fitness = GenerateFitnessValuesWorkSheet3(population[i]);
 		}
 
 		//std::cout << "Population" << std::endl;
 		//PrintPopulationFitness(population);
 
-
-		float totalPopFitness = GetPopulationFitness(population);
-
-		
 
 		/////////////
 		//Selection//
@@ -166,7 +175,7 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 			for (int i = 0; i < P; i++) {
 				//int selection_point = static_cast<int>(rand() % static_cast<int>(totalPopFitness));
 
-				int selection_point = RandomFloat(0, totalPopFitness);
+				int selection_point = RandomFloat(0, GetPopulationFitness(population));
 
 				
 				float running_total = 0;
