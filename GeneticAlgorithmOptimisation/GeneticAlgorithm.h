@@ -11,6 +11,10 @@ const float MINGENEVALUE = -5.12f;
 const float MAXGENEVALUE = 5.12f;
 const float MUTSTEP = 1.0;
 
+const float MINPOSSIBLEFITNESS = N * MINGENEVALUE;
+const float MAXPOSSIBLEFITNESS = N * MAXGENEVALUE;
+
+
 
 //Each individual
 typedef struct {
