@@ -25,6 +25,17 @@ float GenerateFitnessValues(Individual ind)
 }
 
 
+float GenerateFitnessValuesWorkSheet3(Individual ind)
+{
+
+
+
+	//float fitness = 0;
+	//for (int i = 0; i < N; i++)
+	//	fitness = fitness + ind.gene[i];
+	//return fitness;
+}
+
 
 
 
