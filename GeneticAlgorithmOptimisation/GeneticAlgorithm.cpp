@@ -191,7 +191,7 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
 				int parent2 = rand() % P;
-				if (population[parent1].fitness > population[parent2].fitness)
+				if (population[parent1].fitness < population[parent2].fitness)
 					offspring[i] = population[parent1];
 				else
 					offspring[i] = population[parent2];
@@ -259,45 +259,62 @@ void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
 	WriteGAResultToCSV(selectionType, gaResult);
 	PrintGAResultToConsole(selectionType, gaResult);
 
-
-
 }
 
 
 
 
-float GenerateFitnessValuesWorkSheet3(Individual ind)
-{
-
-	float fitness = 0;
-
-	fitness += 10 * N;
-
-	float x = 0.0f;
-
-	float sum = 0.0f;
-
-	float pie = atan(1) * 4;
-
-	for (size_t i = 1; i < N + 1; i++)
-	{
-		x = ind.gene[i];
-
-		sum += (x * x) - 10 * cos(2 * pie * x);
-
-	}
-
-	fitness += sum;
-
-	//for (int i = 0; i < N; i++)
-	//	fitness = fitness + ind.gene[i];
-
-	return fitness;
-}
 
 
 
-void TestFitnessFunctionAssignment1(float val1, float val2, float val3)
-{
 
-}
+
+
+
+
+
+
+
+
+
+//float GenerateFitnessValuesAssignment1(Individual ind)
+//{
+//
+//	float fitness = 0;
+//
+//	fitness += 10 * N;
+//
+//	float x = 0.0f;
+//
+//	float sum = 0.0f;
+//
+//	float pie = atan(1) * 4;
+//
+//	for (size_t i = 1; i < N + 1; i++)
+//	{
+//		x = ind.gene[i];
+//
+//		sum += (x * x) - 10 * cos(2 * pie * x);
+//
+//	}
+//
+//	fitness += sum;
+//
+//	//for (int i = 0; i < N; i++)
+//	//	fitness = fitness + ind.gene[i];
+//
+//	return fitness;
+//}
+//
+//
+//
+//void TestFitnessFunctionAssignment1(float val1, float val2, float val3)
+//{
+//
+//	//-20exp(-0.2 root 1/d * sum x^2 from i = 1 to d - (rest)
+//	float rv = 0.0f;
+//
+//	//rv = -20 * exp(-0.2 sqrt(1/);
+//
+//	//return rv;
+//}
