@@ -7,7 +7,7 @@
 /// </summary>
 const int N = 10; //Number of genes
 const int P = 50; //Population 
-const int GENERATIONS = 500; //Generations
+const int GENERATIONS = 50; //Generations
 
 const float MUTRATE = 1; 
 const float MINGENEVALUE = -5.12f;
@@ -29,7 +29,7 @@ typedef struct {
 
 //Each time we run
 typedef struct {
-	std::vector<GenerationResult> GenerationResults[];
+	std::vector<GenerationResult> GenerationResults;
 } GeneticAlgortihmResult;
 
 

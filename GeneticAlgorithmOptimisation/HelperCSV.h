@@ -43,7 +43,7 @@ void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vect
 }
 
 
-void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResult> gaResult)
+void WriteGAResultToCSV(SelectionType selectionType, GeneticAlgortihmResult gaResult)
 {
 
 	// current date/time based on current system
@@ -57,11 +57,11 @@ void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResul
 	std::vector<float> meanFitness;
 	std::vector<float> bestFitness;
 
-	for (size_t i = 0; i < gaResult.size(); i++)
+	for (size_t i = 0; i < gaResult.GenerationResults.size(); i++)
 	{
-		generation.push_back(gaResult[i].generation);
-		meanFitness.push_back(gaResult[i].meanFitness);
-		bestFitness.push_back(gaResult[i].bestFitness);
+		generation.push_back(gaResult.GenerationResults[i].generation);
+		meanFitness.push_back(gaResult.GenerationResults[i].meanFitness);
+		bestFitness.push_back(gaResult.GenerationResults[i].bestFitness);
 
 	}
 
@@ -112,13 +112,13 @@ void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResul
 }
 
 
-void PrintGAResultToConsole(SelectionType selectionType, std::vector<GenerationResult> gaResult)
+void PrintGAResultToConsole(SelectionType selectionType, GeneticAlgortihmResult gaResult)
 {
 
 	PrintLine("Gen | Mean Fit | Best Fit");
-	for (size_t i = 0; i < gaResult.size(); i++)
+	for (size_t i = 0; i < gaResult.GenerationResults.size(); i++)
 	{
-		printf("%2.3d | %8.4f | %8.4f \n", gaResult[i].generation, gaResult[i].meanFitness, gaResult[i].bestFitness);
+		printf("%2.3d | %8.4f | %8.4f \n", gaResult.GenerationResults[i].generation, gaResult.GenerationResults[i].meanFitness, gaResult.GenerationResults[i].bestFitness);
 	}
 	PrintLine("\n");
 }

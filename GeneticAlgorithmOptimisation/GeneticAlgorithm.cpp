@@ -98,6 +98,7 @@ float GetMeanFitnessInPopulation(Individual pop[])
 GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 {
 	GeneticAlgortihmResult returnValue;
+	std::vector<GenerationResult> generationResults;
 	//GA Result contains every generation and its mean fitness
 
 	switch (selectionType)
@@ -112,7 +113,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 		break;
 	}
 
-	srand(time(NULL));
+	
 	//std::cout << std::setprecision(4);
 
 	Individual population[P];
@@ -221,7 +222,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 		//returnValue.push_back
 
 
-		returnValue.GenerationResults.push_back(currrentGeneration); //Push this generation onto the return value
+		generationResults.push_back(currrentGeneration); //Push this generation onto the return value
 
 		/////////////////////
 		//Update Population//
@@ -231,45 +232,55 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 		
 		
 	}
+
+	returnValue.GenerationResults.assign(generationResults.begin(), generationResults.end());
+
 	return returnValue;
 }
 
 
 void TestGeneticAlgorithmLogResults(SelectionType selectionType, int numberOfRuns)
 {
+	srand(time(NULL));
 
 	std::vector<GeneticAlgortihmResult> result;
-	GeneticAlgortihmResult tempResult;
+	GeneticAlgortihmResult allRunsAveraged;
 
-	result.push_back(tempResult);
+	GenerationResult allGensAveraged;
 
+	//Run GA numberOfRuns times
 	for (size_t i = 0; i < numberOfRuns; i++)
 	{
-
 		result.push_back(RunGeneticAlgorithm(selectionType));
-
-
-
-
-		//tempResult = RunGeneticAlgorithm(selectionType); //Result from 1 run of the GA
-		//for (size_t j = 0; j < tempResult.size(); j++)
-		//{
-		//	//get 
-		//	tempResult[j].generation = (result[j].generation + tempResult[j].generation) / result.size();
-		//	tempResult[j].meanFitness = (result[j].meanFitness + tempResult[j].meanFitness) / result.size();
-		//	tempResult[j].bestFitness = (result[j].bestFitness + tempResult[j].bestFitness) / result.size();
-
-		//	
-		//	result[i].
-		//}
-
+		//std::cout << "Best fitness on generation " << 1 << " - " << result[i].GenerationResults[0].bestFitness << std::endl;
 	}
+		
 
 
+	float meanFit = 0.0f, bestFit = 0.0f;
+	//for every generation in each GA
+	for (size_t j = 0; j < GENERATIONS; j++)
+	{
+		//for every GA we ran add to val
+		for (size_t i = 0; i < numberOfRuns; i++)
+		{
+			meanFit += result[i].GenerationResults[j].meanFitness;
+			bestFit += result[i].GenerationResults[j].bestFitness;
+		}
+
+		meanFit = meanFit / numberOfRuns;
+		bestFit = bestFit / numberOfRuns;
+
+		allGensAveraged.generation = j + 1;
+		allGensAveraged.meanFitness = meanFit;
+		allGensAveraged.bestFitness = bestFit;
+
+		allRunsAveraged.GenerationResults.push_back(allGensAveraged);
+	}
 
 	//average all runs
 	//write to csv and console
-	//WriteGAResultToCSV(selectionType, result);
-	//PrintGAResultToConsole(selectionType, result);
+	WriteGAResultToCSV(selectionType, allRunsAveraged);
+	PrintGAResultToConsole(selectionType, allRunsAveraged);
 
 }

@@ -13,6 +13,6 @@ int main()
 {
 	
 	//TestGeneticAlgorithmLogResults(ROULETTE, 2);
-	TestGeneticAlgorithmLogResults(TOURNAMENT, 2);
+	TestGeneticAlgorithmLogResults(TOURNAMENT, 10);
 
 }
