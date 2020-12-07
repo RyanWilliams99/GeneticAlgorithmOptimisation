@@ -39,7 +39,7 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 
 	float pie = atan(1) * 4;
 
-	for (size_t i = 0; i < N + 1; i++)
+	for (size_t i = 0; i < N; i++)
 	{
 		x = ind.gene[i];
 
@@ -78,10 +78,11 @@ float GetPopulationFitness(Individual population[])
 
 float GetBestFitnessInPopulation(Individual pop[])
 {
-	float returnValue = 0.0f;
+
+	float returnValue = FLT_MAX;
 	for (size_t i = 0; i < P; i++)
 	{
-		if (pop[i].fitness > returnValue)
+		if (pop[i].fitness < returnValue)
 			returnValue = pop[i].fitness;
 	}
 	return returnValue;
