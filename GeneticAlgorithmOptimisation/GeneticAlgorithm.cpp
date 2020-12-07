@@ -39,11 +39,11 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 
 	float pie = atan(1) * 4;
 
-	for (size_t i = 1; i < N + 1; i++)
+	for (size_t i = 0; i < N + 1; i++)
 	{
 		x = ind.gene[i];
 
-		sum += (x * x) - 10 * cos(2 * pie * x);
+		sum += (x * x) - (10 * cos(2 * pie * x));
 
 	}
 
@@ -53,6 +53,7 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 	//	fitness = fitness + ind.gene[i];
 
 	return fitness;
+
 }
 
 
@@ -151,15 +152,12 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 		GenerationResult currrentGeneration{ };
 
 		currrentGeneration.generation = i + 1;
-		
 
-
-		//std::cout << "--------------------------------------------------------------Generation" << i + 1 << "-------------------------------------------------------" << std::endl;
 
 		//Get fitness values for each individual
-		for (int i = 0; i < P; i++)
+		for (int j = 0; j < P; j++)
 		{
-			population[i].fitness = GenerateFitnessValuesWorkSheet3(population[i]);
+			population[j].fitness = GenerateFitnessValuesWorkSheet3(population[j]);
 		}
 
 		//std::cout << "Population" << std::endl;
@@ -171,22 +169,22 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 		/////////////
 		switch (selectionType)
 		{
-		case ROULETTE:
-			for (int i = 0; i < P; i++) {
-				//int selection_point = static_cast<int>(rand() % static_cast<int>(totalPopFitness));
+		//case ROULETTE:
+		//	for (int i = 0; i < P; i++) {
+		//		//int selection_point = static_cast<int>(rand() % static_cast<int>(totalPopFitness));
 
-				int selection_point = RandomFloat(0, GetPopulationFitness(population));
+		//		int selection_point = RandomFloat(0, GetPopulationFitness(population));
 
-				
-				float running_total = 0;
-				int j = 0;
-				while (running_total <= selection_point) {
-					running_total += population[j].fitness;
-					j++;
-				}
-				offspring[i] = population[j - 1];
-			}
-			break;
+		//		
+		//		float running_total = 0;
+		//		int j = 0;
+		//		while (running_total <= selection_point) {
+		//			running_total += population[j].fitness;
+		//			j++;
+		//		}
+		//		offspring[i] = population[j - 1];
+		//	}
+		//	break;
 		case TOURNAMENT:
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;

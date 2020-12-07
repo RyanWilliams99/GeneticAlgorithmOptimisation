@@ -5,7 +5,7 @@
 
 const int N = 10; //Numnber of genes
 const int P = 50; //Population 
-const int GENERATIONS = 50; //Generations
+const int GENERATIONS = 10; //Generations
 const float MUTRATE = 0.2; 
 const float MINGENEVALUE = -5.12f;
 const float MAXGENEVALUE = 5.12f;
