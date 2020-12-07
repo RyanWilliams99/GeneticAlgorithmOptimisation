@@ -13,12 +13,7 @@ int main()
 {
 
 	
-	//RunGeneticAlgorithmWithLogging(ROULETTE);
+	RunGeneticAlgorithmWithLogging(ROULETTE);
 	RunGeneticAlgorithmWithLogging(TOURNAMENT);
 
-	//PrintLine("Running basic GA with Tournament wheel selection...");
-	//RunGeneticAlgorithm(TOURNAMENT);
-
-
-	//TestFitnessFunction
 }

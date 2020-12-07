@@ -49,9 +49,6 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 
 	fitness += sum;
 
-	//for (int i = 0; i < N; i++)
-	//	fitness = fitness + ind.gene[i];
-
 	return fitness;
 
 }
@@ -60,19 +57,9 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 float GetPopulationFitness(Individual population[])
 {
 	float t = 0;
-
-	//std::cout << "( ";
-
 	for (int i = 0; i < P; i++)
-	{
-		//std::cout << "" << population[i].fitness << " ";
-
 		t = t + population[i].fitness;
-
-	}
-
 	return t;
-	//std::cout << ") Total Fitness - " << t << std::endl;
 }
 
 
@@ -108,27 +95,27 @@ float GetMeanFitnessInPopulation(Individual pop[])
 /// <returns>
 /// Returns a list of GenerationResult objects, each one contains the mean and best fitness values
 /// </returns>
-std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
+std::vector<GeneticAlgorithmResult> RunGeneticAlgorithm(SelectionType selectionType)
 {
 	//Return a list of GA results
-	std::vector<GenerationResult> returnValue;
+	std::vector<GeneticAlgorithmResult> returnValue;
 
 	//GA Result contains every generation and its mean fitness
 
 	switch (selectionType)
 	{
 	case ROULETTE:
-		printf("Running basic GA with Roulette wheel selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
+		//printf("Running basic GA with Roulette wheel selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
 		break;
 	case TOURNAMENT:
-		printf("Running basic GA with Tournament selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
+		//printf("Running basic GA with Tournament selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
 		break;
 	default:
 		break;
 	}
 
 	srand(time(NULL));
-	std::cout << std::setprecision(4);
+	//std::cout << std::setprecision(4);
 
 	Individual population[P];
 	Individual offspring[P];
@@ -150,7 +137,7 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 	/////////////
 	for (int i = 0; i < GENERATIONS; ++i) {
 
-		GenerationResult currrentGeneration{ };
+		GeneticAlgorithmResult currrentGeneration{ };
 
 		currrentGeneration.generation = i + 1;
 
@@ -170,22 +157,19 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 		/////////////
 		switch (selectionType)
 		{
-		//case ROULETTE:
-		//	for (int i = 0; i < P; i++) {
-		//		//int selection_point = static_cast<int>(rand() % static_cast<int>(totalPopFitness));
+		case ROULETTE:
+			for (int i = 0; i < P; i++) {
 
-		//		int selection_point = RandomFloat(0, GetPopulationFitness(population));
-
-		//		
-		//		float running_total = 0;
-		//		int j = 0;
-		//		while (running_total <= selection_point) {
-		//			running_total += population[j].fitness;
-		//			j++;
-		//		}
-		//		offspring[i] = population[j - 1];
-		//	}
-		//	break;
+				int selection_point = RandomFloat(0, GetPopulationFitness(population));
+				float running_total = 0;
+				int j = 0;
+				while (running_total <= selection_point) {
+					running_total += population[j].fitness;
+					j++;
+				}
+				offspring[i] = population[j - 1];
+			}
+			break;
 		case TOURNAMENT:
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
@@ -253,67 +237,9 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType)
 void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
 {
 	
-	std::vector<GenerationResult> gaResult;
-	gaResult = RunGeneticAlgorithm(selectionType);
-	WriteGAResultToCSV(selectionType, gaResult);
-	PrintGAResultToConsole(selectionType, gaResult);
+	std::vector<GeneticAlgorithmResult> result;
+	result = RunGeneticAlgorithm(selectionType);
+	WriteGAResultToCSV(selectionType, result);
+	PrintGAResultToConsole(selectionType, result);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//float GenerateFitnessValuesAssignment1(Individual ind)
-//{
-//
-//	float fitness = 0;
-//
-//	fitness += 10 * N;
-//
-//	float x = 0.0f;
-//
-//	float sum = 0.0f;
-//
-//	float pie = atan(1) * 4;
-//
-//	for (size_t i = 1; i < N + 1; i++)
-//	{
-//		x = ind.gene[i];
-//
-//		sum += (x * x) - 10 * cos(2 * pie * x);
-//
-//	}
-//
-//	fitness += sum;
-//
-//	//for (int i = 0; i < N; i++)
-//	//	fitness = fitness + ind.gene[i];
-//
-//	return fitness;
-//}
-//
-//
-//
-//void TestFitnessFunctionAssignment1(float val1, float val2, float val3)
-//{
-//
-//	//-20exp(-0.2 root 1/d * sum x^2 from i = 1 to d - (rest)
-//	float rv = 0.0f;
-//
-//	//rv = -20 * exp(-0.2 sqrt(1/);
-//
-//	//return rv;
-//}
