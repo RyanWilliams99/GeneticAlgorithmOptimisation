@@ -40,7 +40,3 @@ std::vector<GenerationResult> RunGeneticAlgorithm(SelectionType selectionType);
 
 void RunGeneticAlgorithmWithLogging(SelectionType slectionType);
 
-void TestFitnessFunctionWS3(float val1, float val2, float val3);
-void TestFitnessFunctionAssignment1(float val1, float val2, float val3);
-
-

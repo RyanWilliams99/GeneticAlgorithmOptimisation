@@ -34,5 +34,3 @@ void PrintPopulationFitness(Individual population[])
 	}
 	std::cout << ") Total Fitness - " << t << std::endl;
 }
-
-

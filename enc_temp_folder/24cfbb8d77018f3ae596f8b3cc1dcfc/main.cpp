@@ -20,5 +20,5 @@ int main()
 	//RunGeneticAlgorithm(TOURNAMENT);
 
 
-	TestFitnessFunction
+
 }
