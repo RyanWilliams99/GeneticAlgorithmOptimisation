@@ -43,7 +43,7 @@ void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vect
 }
 
 
-void WriteGAResultToCSV(SelectionType selectionType, std::vector<GeneticAlgorithmResult> gaResult)
+void WriteGAResultToCSV(SelectionType selectionType, std::vector<GenerationResult> gaResult)
 {
 
 	// current date/time based on current system
@@ -112,7 +112,7 @@ void WriteGAResultToCSV(SelectionType selectionType, std::vector<GeneticAlgorith
 }
 
 
-void PrintGAResultToConsole(SelectionType selectionType, std::vector<GeneticAlgorithmResult> gaResult)
+void PrintGAResultToConsole(SelectionType selectionType, std::vector<GenerationResult> gaResult)
 {
 
 	PrintLine("Gen | Mean Fit | Best Fit");

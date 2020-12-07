@@ -95,11 +95,9 @@ float GetMeanFitnessInPopulation(Individual pop[])
 /// <returns>
 /// Returns a list of GenerationResult objects, each one contains the mean and best fitness values
 /// </returns>
-std::vector<GeneticAlgorithmResult> RunGeneticAlgorithm(SelectionType selectionType)
+GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 {
-	//Return a list of GA results
-	std::vector<GeneticAlgorithmResult> returnValue;
-
+	GeneticAlgortihmResult returnValue;
 	//GA Result contains every generation and its mean fitness
 
 	switch (selectionType)
@@ -137,7 +135,7 @@ std::vector<GeneticAlgorithmResult> RunGeneticAlgorithm(SelectionType selectionT
 	/////////////
 	for (int i = 0; i < GENERATIONS; ++i) {
 
-		GeneticAlgorithmResult currrentGeneration{ };
+		GenerationResult currrentGeneration{ };
 
 		currrentGeneration.generation = i + 1;
 
@@ -220,7 +218,10 @@ std::vector<GeneticAlgorithmResult> RunGeneticAlgorithm(SelectionType selectionT
 		currrentGeneration.bestFitness = GetBestFitnessInPopulation(population);
 		currrentGeneration.meanFitness = GetMeanFitnessInPopulation(population);
 
-		returnValue.push_back(currrentGeneration);
+		//returnValue.push_back
+
+
+		returnValue.GenerationResults.push_back(currrentGeneration); //Push this generation onto the return value
 
 		/////////////////////
 		//Update Population//
@@ -234,12 +235,41 @@ std::vector<GeneticAlgorithmResult> RunGeneticAlgorithm(SelectionType selectionT
 }
 
 
-void RunGeneticAlgorithmWithLogging(SelectionType selectionType)
+void TestGeneticAlgorithmLogResults(SelectionType selectionType, int numberOfRuns)
 {
-	
-	std::vector<GeneticAlgorithmResult> result;
-	result = RunGeneticAlgorithm(selectionType);
-	WriteGAResultToCSV(selectionType, result);
-	PrintGAResultToConsole(selectionType, result);
+
+	std::vector<GeneticAlgortihmResult> result;
+	GeneticAlgortihmResult tempResult;
+
+	result.push_back(tempResult);
+
+	for (size_t i = 0; i < numberOfRuns; i++)
+	{
+
+		result.push_back(RunGeneticAlgorithm(selectionType));
+
+
+
+
+		//tempResult = RunGeneticAlgorithm(selectionType); //Result from 1 run of the GA
+		//for (size_t j = 0; j < tempResult.size(); j++)
+		//{
+		//	//get 
+		//	tempResult[j].generation = (result[j].generation + tempResult[j].generation) / result.size();
+		//	tempResult[j].meanFitness = (result[j].meanFitness + tempResult[j].meanFitness) / result.size();
+		//	tempResult[j].bestFitness = (result[j].bestFitness + tempResult[j].bestFitness) / result.size();
+
+		//	
+		//	result[i].
+		//}
+
+	}
+
+
+
+	//average all runs
+	//write to csv and console
+	//WriteGAResultToCSV(selectionType, result);
+	//PrintGAResultToConsole(selectionType, result);
 
 }

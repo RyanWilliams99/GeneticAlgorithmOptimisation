@@ -20,15 +20,22 @@ typedef struct {
 	float fitness;
 } Individual;
 
-//Each run
+//Each generation
 typedef struct {
 	int generation;
 	float bestFitness;
 	float meanFitness;
-} GeneticAlgorithmResult;
+} GenerationResult;
+
+//Each time we run
+typedef struct {
+	std::vector<GenerationResult> GenerationResults[];
+} GeneticAlgortihmResult;
+
 
 enum SelectionType { ROULETTE, TOURNAMENT };
 
 enum FitnessFunction { WS3, wOpt };
 
-void RunGeneticAlgorithmWithLogging(SelectionType slectionType);
+void TestGeneticAlgorithmLogResults(SelectionType slectionType, int numberOfRuns);
+
