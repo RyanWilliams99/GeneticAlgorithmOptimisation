@@ -102,17 +102,17 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 
 	//GA Result contains every generation and its mean fitness
 
-	//switch (selectionType)
-	//{
-	//case ROULETTE:
-	//	//printf("Running basic GA with Roulette wheel selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
-	//	break;
-	//case TOURNAMENT:
-	//	//printf("Running basic GA with Tournament selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
-	//	break;
-	//default:
-	//	break;
-	//}
+	switch (selectionType)
+	{
+	case ROULETTE:
+		printf("Running GA with Roulette wheel selection (Population %d, Number of genes %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+		break;
+	case TOURNAMENT:
+		printf("Running GA with Tournament selection (Population %d, Number of genes %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+		break;
+	default:
+		break;
+	}
 
 	Individual population[P];
 	Individual offspring[P];
@@ -169,16 +169,16 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		{
 
 			//HOW DOES THIS ERROR MAKE IT ONLY DO 1 GENERATION EACH RUN????????
-			for (int roulettei = 0; roulettei < P; roulettei++)
+			for (int individual = 0; individual < P; individual++)
 			{
 				float selection_point = RandomFloat(0, GetPopulationFitness(population));
 				float running_total = 0;
-				int ROULETTEINT = 0;
+				int r = 0;
 				while (running_total <= selection_point) {
-					running_total += population[ROULETTEINT].fitness;
-					ROULETTEINT++;
+					running_total += population[r].fitness;
+					r++;
 				}
-				offspring[roulettei] = population[ROULETTEINT - 1];
+				offspring[individual] = population[r - 1];
 			}
 
 		}
@@ -267,12 +267,10 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction
 
 	//Run GA numberOfRuns times, store result each time
 	for (size_t i = 0; i < numberOfRuns; i++)
-	{
 		result.push_back(RunGeneticAlgorithm(selectionType, fitnessFunction));
-		//std::cout << "Best fitness on generation " << 1 << " - " << result[i].GenerationResults[0].bestFitness << std::endl;
-	}
-		
 
+
+	printf("Averaging results for each generation...\n");
 	//for every generation...
 	for (size_t j = 0; j < GENERATIONS; j++)
 	{
@@ -299,8 +297,8 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction
 		allRunsAveraged.GenerationResults.push_back(allGensAveraged);
 	}
 
-	//write to csv and console
-	WriteGAResultToCSV(selectionType, allRunsAveraged);
+	//write to console then csv
 	PrintGAResultToConsole(selectionType, allRunsAveraged);
+	WriteGAResultToCSV(selectionType, allRunsAveraged);
 
 }

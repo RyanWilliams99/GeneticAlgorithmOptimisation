@@ -45,7 +45,7 @@ void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vect
 
 void WriteGAResultToCSV(SelectionType selectionType, GeneticAlgortihmResult gaResult)
 {
-
+	printf("Writing results to csv...\n\n");
 	// current date/time based on current system
 	time_t now = time(0);
 
@@ -120,5 +120,4 @@ void PrintGAResultToConsole(SelectionType selectionType, GeneticAlgortihmResult 
 	{
 		printf("%2.3d | %8.4f | %8.4f \n", gaResult.GenerationResults[i].generation, gaResult.GenerationResults[i].meanFitness, gaResult.GenerationResults[i].bestFitness);
 	}
-	PrintLine("\n");
 }
