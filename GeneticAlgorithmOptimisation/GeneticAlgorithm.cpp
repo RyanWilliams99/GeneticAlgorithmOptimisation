@@ -53,6 +53,33 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 
 }
 
+float GenerateFitnessValuesWopt(Individual ind)
+{
+
+	/*float fitness = 0;
+
+	fitness += 10 * N;
+
+	float x = 0.0f;
+
+	float sum = 0.0f;
+
+	float pie = atan(1) * 4;
+
+	for (size_t i = 0; i < N; i++)
+	{
+		x = ind.gene[i];
+
+		sum += (x * x) - (10 * cos(2 * pie * x));
+
+	}
+
+	fitness += sum;
+
+	return fitness;*/
+
+}
+
 
 float GetPopulationFitness(Individual population[])
 {
