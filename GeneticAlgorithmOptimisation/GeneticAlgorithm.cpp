@@ -58,7 +58,7 @@ float GetPopulationFitness(Individual population[])
 {
 	float t = 0;
 	for (int i = 0; i < P; i++)
-		t = t + population[i].fitness;
+		t += population[i].fitness;
 	return t;
 }
 
@@ -95,7 +95,7 @@ float GetMeanFitnessInPopulation(Individual pop[])
 /// <returns>
 /// Returns a list of GenerationResult objects, each one contains the mean and best fitness values
 /// </returns>
-GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
+GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessFunction fitnessFunction)
 {
 	GeneticAlgortihmResult returnValue;
 	std::vector<GenerationResult> generationResults;
@@ -144,7 +144,18 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 		//Get fitness values for each individual
 		for (int j = 0; j < P; j++)
 		{
-			population[j].fitness = GenerateFitnessValuesWorkSheet3(population[j]);
+			switch (fitnessFunction)
+			{
+			case WS3:
+				population[j].fitness = GenerateFitnessValuesWorkSheet3(population[j]);
+				break;
+			case wOpt:
+				//population[j].fitness = GenerateFitnessValuesWorkSheet3(population[j]);
+				break;
+			default:
+				break;
+			}
+			
 		}
 
 		//std::cout << "Population" << std::endl;
@@ -154,21 +165,45 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 		/////////////
 		//Selection//
 		/////////////
+
+		float totalPopulationFitness = GetPopulationFitness(population);
+
 		switch (selectionType)
 		{
 		case ROULETTE:
+		{
+			//need to set up fitness values for roulettte
+			//step 1 overwrite each individuals fitness eqaul to the total fitness for this gen - current ind fitness
+			//first adjust the fitness for all so that lower fitness means higher chance of being selected (minimisation fucntion)
+
+			std::vector<std::pair<int, float>> rouletteWheel;
+
+			std::pair<int, float> value;
+
+			float adjustedPopulationFitness = 0.0f;
+
+
+			for (size_t i = 0; i < P; i++)
+			{
+				population[i].adjustedFitness = totalPopulationFitness - population[i].fitness;
+				rouletteWheel.push_back(value);
+				adjustedPopulationFitness += population[i].adjustedFitness;
+			}
 			for (int i = 0; i < P; i++) {
 
-				int selection_point = RandomFloat(0, GetPopulationFitness(population));
+				int selection_point = RandomFloat(0, adjustedPopulationFitness);
 				float running_total = 0;
 				int j = 0;
 				while (running_total <= selection_point) {
-					running_total += population[j].fitness;
+					running_total += population[j].adjustedFitness;
 					j++;
 				}
+				
 				offspring[i] = population[j - 1];
 			}
 			break;
+		}
+			
 		case TOURNAMENT:
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
@@ -180,6 +215,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 			}
 			break;
 		default:
+
 			break;
 		}
 
@@ -239,38 +275,37 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType)
 }
 
 
-void TestGeneticAlgorithmLogResults(SelectionType selectionType, int numberOfRuns)
+void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction fitnessFunction, int numberOfRuns)
 {
 	srand(time(NULL));
 
-	std::vector<GeneticAlgortihmResult> result;
-	GeneticAlgortihmResult allRunsAveraged;
+	std::vector<GeneticAlgortihmResult> result; //Store result of the GAs
+	GeneticAlgortihmResult allRunsAveraged; //Final result for each GA averaged
+	GenerationResult allGensAveraged; //Final result for each generation averaged
+	float meanFit = 0.0f, bestFit = 0.0f; //used for averaging
 
-	GenerationResult allGensAveraged;
-
-	//Run GA numberOfRuns times
+	//Run GA numberOfRuns times, store result each time
 	for (size_t i = 0; i < numberOfRuns; i++)
 	{
-		result.push_back(RunGeneticAlgorithm(selectionType));
+		result.push_back(RunGeneticAlgorithm(selectionType, fitnessFunction));
 		//std::cout << "Best fitness on generation " << 1 << " - " << result[i].GenerationResults[0].bestFitness << std::endl;
 	}
 		
-
-
-	float meanFit = 0.0f, bestFit = 0.0f;
-	//for every generation in each GA
+	//for every generation...
 	for (size_t j = 0; j < GENERATIONS; j++)
 	{
-		//for every GA we ran add to val
+		//for every time we ran the GA...
 		for (size_t i = 0; i < numberOfRuns; i++)
 		{
 			meanFit += result[i].GenerationResults[j].meanFitness;
 			bestFit += result[i].GenerationResults[j].bestFitness;
 		}
 
+		//average
 		meanFit = meanFit / numberOfRuns;
 		bestFit = bestFit / numberOfRuns;
 
+		//store vals
 		allGensAveraged.generation = j + 1;
 		allGensAveraged.meanFitness = meanFit;
 		allGensAveraged.bestFitness = bestFit;
@@ -278,7 +313,6 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, int numberOfRun
 		allRunsAveraged.GenerationResults.push_back(allGensAveraged);
 	}
 
-	//average all runs
 	//write to csv and console
 	WriteGAResultToCSV(selectionType, allRunsAveraged);
 	PrintGAResultToConsole(selectionType, allRunsAveraged);

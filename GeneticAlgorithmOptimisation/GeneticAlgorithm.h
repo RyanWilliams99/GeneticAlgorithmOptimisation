@@ -7,7 +7,7 @@
 /// </summary>
 const int N = 10; //Number of genes
 const int P = 50; //Population 
-const int GENERATIONS = 50; //Generations
+const int GENERATIONS = 10; //Generations
 
 const float MUTRATE = 1; 
 const float MINGENEVALUE = -5.12f;
@@ -18,6 +18,7 @@ const float MUTSTEP = 5.12f; //????
 typedef struct {
 	float gene[N];
 	float fitness;
+	float adjustedFitness; //used for roulette wheel with minimisation function
 } Individual;
 
 //Each generation
@@ -37,5 +38,5 @@ enum SelectionType { ROULETTE, TOURNAMENT };
 
 enum FitnessFunction { WS3, wOpt };
 
-void TestGeneticAlgorithmLogResults(SelectionType slectionType, int numberOfRuns);
+void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction fitnessFunction, int numberOfRuns);
 

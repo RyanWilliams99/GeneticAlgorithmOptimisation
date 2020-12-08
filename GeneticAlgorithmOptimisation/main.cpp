@@ -11,8 +11,6 @@
 
 int main()
 {
-	
-	//TestGeneticAlgorithmLogResults(ROULETTE, 2);
-	TestGeneticAlgorithmLogResults(TOURNAMENT, 10);
-
+	TestGeneticAlgorithmLogResults(ROULETTE, WS3, 1);
+	//TestGeneticAlgorithmLogResults(TOURNAMENT, WS3, 10);
 }
