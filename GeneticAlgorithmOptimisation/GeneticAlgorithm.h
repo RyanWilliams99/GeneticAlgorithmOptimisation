@@ -18,7 +18,7 @@ const float MUTSTEP = 5.12f; //????
 typedef struct {
 	float gene[N];
 	float fitness;
-	//float adjustedFitness; //used for roulette wheel with minimisation function
+	float adjustedFitness; //used for roulette wheel with minimisation function
 } Individual;
 
 //Each generation

@@ -163,25 +163,27 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		/////////////
 		//Selection//
 		/////////////
-
 		switch (selectionType)
 		{
 		case ROULETTE:
-			for (i = 0; i < P; i++) 
+		{
+
+			//HOW DOES THIS ERROR MAKE IT ONLY DO 1 GENERATION EACH RUN????????
+			for (int roulettei = 0; roulettei < P; roulettei++)
 			{
 				float selection_point = RandomFloat(0, GetPopulationFitness(population));
 				float running_total = 0;
-				int j = 0;
+				int ROULETTEINT = 0;
 				while (running_total <= selection_point) {
-					running_total += population[j].fitness;
-					j++;
+					running_total += population[ROULETTEINT].fitness;
+					ROULETTEINT++;
 				}
-				offspring[i] = population[j - 1];
-
-
+				offspring[roulettei] = population[ROULETTEINT - 1];
 			}
-			break;
+
+		}
 		case TOURNAMENT:
+		{
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
 				int parent2 = rand() % P;
@@ -191,6 +193,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 					offspring[i] = population[parent2];
 			}
 			break;
+		}
 		default:
 
 			break;
@@ -259,7 +262,7 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction
 
 	std::vector<GeneticAlgortihmResult> result; //Store result of the GAs
 	GeneticAlgortihmResult allRunsAveraged; //Final result for each GA averaged
-	GenerationResult allGensAveraged; //Final result for each generation averaged
+	
 	float meanFit = 0.0f, bestFit = 0.0f; //used for averaging
 
 	//Run GA numberOfRuns times, store result each time
@@ -269,9 +272,14 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction
 		//std::cout << "Best fitness on generation " << 1 << " - " << result[i].GenerationResults[0].bestFitness << std::endl;
 	}
 		
+
 	//for every generation...
 	for (size_t j = 0; j < GENERATIONS; j++)
 	{
+		GenerationResult allGensAveraged;  //Final result for each generation averaged
+		meanFit = 0.0f; //reset each time
+		bestFit = 0.0f; //reset each time
+
 		//for every time we ran the GA...
 		for (size_t i = 0; i < numberOfRuns; i++)
 		{
