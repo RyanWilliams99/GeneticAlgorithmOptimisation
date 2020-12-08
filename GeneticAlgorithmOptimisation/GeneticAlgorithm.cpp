@@ -99,6 +99,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 {
 	GeneticAlgortihmResult returnValue;
 	std::vector<GenerationResult> generationResults;
+
 	//GA Result contains every generation and its mean fitness
 
 	//switch (selectionType)
@@ -128,12 +129,12 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		population[i].fitness = 0;
 	}
 
-	/////////////
-	//main loop//
-	/////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////main loop//////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	for (int i = 0; i < GENERATIONS; ++i) {
 
-		GenerationResult currrentGeneration{ };
+		GenerationResult currrentGeneration;
 
 		currrentGeneration.generation = i + 1;
 
@@ -163,14 +164,12 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		//Selection//
 		/////////////
 
-		float totalPopulationFitness = GetPopulationFitness(population);
-
 		switch (selectionType)
 		{
 		case ROULETTE:
 			for (i = 0; i < P; i++) 
 			{
-				float selection_point = RandomFloat(0, totalPopulationFitness);
+				float selection_point = RandomFloat(0, GetPopulationFitness(population));
 				float running_total = 0;
 				int j = 0;
 				while (running_total <= selection_point) {
@@ -178,6 +177,8 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 					j++;
 				}
 				offspring[i] = population[j - 1];
+
+
 			}
 			break;
 		case TOURNAMENT:
@@ -240,9 +241,10 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		//Update Population//
 		/////////////////////
 		for (int i = 0; i < P; i++)
+		{
 			population[i] = offspring[i];
-		
-		
+		}
+
 	}
 
 	returnValue.GenerationResults.assign(generationResults.begin(), generationResults.end());
