@@ -101,20 +101,17 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 	std::vector<GenerationResult> generationResults;
 	//GA Result contains every generation and its mean fitness
 
-	switch (selectionType)
-	{
-	case ROULETTE:
-		//printf("Running basic GA with Roulette wheel selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
-		break;
-	case TOURNAMENT:
-		//printf("Running basic GA with Tournament selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
-		break;
-	default:
-		break;
-	}
-
-	
-	//std::cout << std::setprecision(4);
+	//switch (selectionType)
+	//{
+	//case ROULETTE:
+	//	//printf("Running basic GA with Roulette wheel selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
+	//	break;
+	//case TOURNAMENT:
+	//	//printf("Running basic GA with Tournament selection (theoritical limits, max fitness %8.2f, min fitness %4.2f)...\n", MAXPOSSIBLEFITNESS, MINPOSSIBLEFITNESS);
+	//	break;
+	//default:
+	//	break;
+	//}
 
 	Individual population[P];
 	Individual offspring[P];
@@ -171,39 +168,18 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		switch (selectionType)
 		{
 		case ROULETTE:
-		{
-			//need to set up fitness values for roulettte
-			//step 1 overwrite each individuals fitness eqaul to the total fitness for this gen - current ind fitness
-			//first adjust the fitness for all so that lower fitness means higher chance of being selected (minimisation fucntion)
-
-			std::vector<std::pair<int, float>> rouletteWheel;
-
-			std::pair<int, float> value;
-
-			float adjustedPopulationFitness = 0.0f;
-
-
-			for (size_t i = 0; i < P; i++)
+			for (i = 0; i < P; i++) 
 			{
-				population[i].adjustedFitness = totalPopulationFitness - population[i].fitness;
-				rouletteWheel.push_back(value);
-				adjustedPopulationFitness += population[i].adjustedFitness;
-			}
-			for (int i = 0; i < P; i++) {
-
-				int selection_point = RandomFloat(0, adjustedPopulationFitness);
+				float selection_point = RandomFloat(0, totalPopulationFitness);
 				float running_total = 0;
 				int j = 0;
 				while (running_total <= selection_point) {
-					running_total += population[j].adjustedFitness;
+					running_total += population[j].fitness;
 					j++;
 				}
-				
 				offspring[i] = population[j - 1];
 			}
 			break;
-		}
-			
 		case TOURNAMENT:
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
