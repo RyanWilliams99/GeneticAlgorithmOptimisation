@@ -105,10 +105,32 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 	switch (selectionType)
 	{
 	case ROULETTE:
-		printf("Running GA with Roulette wheel selection (Population %d, Number of genes %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+		switch (fitnessFunction)
+		{
+		case WS3:
+			printf("Benchmarking GA with RW selection and ws3 (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+			break;
+		case wOpt:
+			printf("Benchmarking GA with RW selection and wopt (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+			break;
+		default:
+			break;
+		}
+		
 		break;
 	case TOURNAMENT:
-		printf("Running GA with Tournament selection (Population %d, Number of genes %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+		switch (fitnessFunction)
+		{
+		case WS3:
+			printf("Benchmarking GA with Tournament selection and ws3 (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+			break;
+		case wOpt:
+			printf("Benchmarking GA with Tournament selection and wopt (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+			break;
+		default:
+			break;
+		}
+		
 		break;
 	default:
 		break;
