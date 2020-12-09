@@ -5,7 +5,7 @@
 /// <summary>
 /// Accessible to other files
 /// </summary>
-const int N = 20; //Number of genes
+const int N = 3; //Number of genes
 const int P = 50; //Population 
 const int GENERATIONS = 50; //Generations
 

@@ -56,28 +56,24 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 float GenerateFitnessValuesWopt(Individual ind)
 {
 
-	/*float fitness = 0;
-
-	fitness += 10 * N;
-
-	float x = 0.0f;
-
-	float sum = 0.0f;
-
+	float rv = 0.0f;
 	float pie = atan(1) * 4;
+
+	float firstSum = 0.0f;
+	float secondSum = 0.0f;
 
 	for (size_t i = 0; i < N; i++)
 	{
-		x = ind.gene[i];
-
-		sum += (x * x) - (10 * cos(2 * pie * x));
-
+		firstSum += ind.gene[i] * ind.gene[i];
+		secondSum += cos(2 * pie * ind.gene[i]);
 	}
 
-	fitness += sum;
 
-	return fitness;*/
+	rv = -20 * exp(-0.2 * sqrt((1 / N) * firstSum));
 
+	rv = rv - exp(1 / N * secondSum);
+
+	return rv;
 }
 
 
@@ -307,6 +303,25 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 
 void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction fitnessFunction, int numberOfRuns)
 {
+
+	switch (fitnessFunction)
+	{
+	case wOpt:
+	{
+		Individual i;
+		i.gene[0] = 1;
+		i.gene[1] = 2;
+		i.gene[2] = 3;
+
+		float fitness = GenerateFitnessValuesWopt(i);
+		printf("pls");
+	}
+		
+	default:
+		break;
+	}
+
+
 	srand(time(NULL));
 
 	std::vector<GeneticAlgortihmResult> result; //Store result of the GAs

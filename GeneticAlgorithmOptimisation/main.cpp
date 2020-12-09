@@ -11,6 +11,11 @@
 
 int main()
 {
-	TestGeneticAlgorithmLogResults(ROULETTE, WS3, 1000);
-	TestGeneticAlgorithmLogResults(TOURNAMENT, WS3, 1000);
+	//WS3 Fitness function
+	//TestGeneticAlgorithmLogResults(ROULETTE, WS3, 1000);
+	//TestGeneticAlgorithmLogResults(TOURNAMENT, WS3, 1000);
+
+	//WOPT Function
+	TestGeneticAlgorithmLogResults(TOURNAMENT, wOpt, 1000);
+
 }
