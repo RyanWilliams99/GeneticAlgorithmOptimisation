@@ -53,11 +53,11 @@ float GenerateFitnessValuesWorkSheet3(Individual ind)
 
 }
 
-float GenerateFitnessValuesWopt(Individual ind)
+float GenerateFitnessWopt(Individual ind)
 {
 
 	float rv = 0.0f;
-	float pie = atan(1) * 4;
+	constexpr double pi = 3.14159265358979323846;
 
 	float firstSum = 0.0f;
 	float secondSum = 0.0f;
@@ -65,13 +65,12 @@ float GenerateFitnessValuesWopt(Individual ind)
 	for (size_t i = 0; i < N; i++)
 	{
 		firstSum += ind.gene[i] * ind.gene[i];
-		secondSum += cos(2 * pie * ind.gene[i]);
+		secondSum += cos(2 * pi * ind.gene[i]);
 	}
-
 
 	rv = -20 * exp(-0.2 * sqrt((1 / N) * firstSum));
 
-	rv = rv - exp(1 / N * secondSum);
+	rv -= exp((1 / N) * secondSum);
 
 	return rv;
 }
@@ -313,7 +312,7 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction
 		i.gene[1] = 2;
 		i.gene[2] = 3;
 
-		float fitness = GenerateFitnessValuesWopt(i);
+		float fitness = GenerateFitnessWopt(i);
 		printf("pls");
 	}
 		
