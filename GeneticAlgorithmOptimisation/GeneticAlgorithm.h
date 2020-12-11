@@ -7,12 +7,12 @@
 /// </summary>
 const int N = 3; //Number of genes
 const int P = 50; //Population 
-const int GENERATIONS = 50; //Generations
+const int GENERATIONS = 500; //Generations
 
-const float MUTRATE = 1; 
+const float MUTRATE = 0; 
 //float MINGENEVALUE = -5.12f;
 //float MAXGENEVALUE = 5.12f;
-const float MUTSTEP = 5.12f; //????
+const float MUTSTEP = 32.0f; //????
 
 //Each individual
 typedef struct {

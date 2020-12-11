@@ -59,24 +59,26 @@ float GenerateFitnessWopt(Individual ind)
 	float rv = 0.0f;
 	constexpr double pi = 3.14159265358979323846;
 
-	double firstSum = 0.0f;
+	float firstSum = 0.0f;
 	double secondSum = 0.0f;
-	double cosbit = 0;
+	double cosbit = 0.0f;
 
-	std::setprecision(64);
+	std::setprecision(128);
 
 	for (size_t i = 0; i < N; i++)
 	{
-		cosbit = 0;
+		cosbit = 0.0f;
 		firstSum += ind.gene[i] * ind.gene[i];
 		cosbit = 2.0f * pi * ind.gene[i];
-		secondSum = secondSum + std::cos(cosbit);
+		secondSum += std::cos(cosbit * pi);
 	}
 
-	double exp1 = -0.2f * sqrt((1 / N) * firstSum);
-	rv = -20 * exp(exp1);
+	long double sqrt = (1.0 / N) * firstSum;
 
-	double exp2 = (1 / N) * secondSum;
+	long double exp1 = (-0.2f * std::sqrt(sqrt));
+	rv = -20.0 * exp(exp1);
+
+	double exp2 = (1.0 / N) * secondSum;
 	rv -= exp(exp2);
 
 	return rv;
@@ -149,8 +151,8 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			break;
 		case wOpt:
 			printf("Benchmarking GA with RW selection and wopt (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
-			mingv = -32;
-			maxgv = 32;
+			mingv = -32.0f;
+			maxgv = 32.0f;
 			break;
 		default:
 			break;
@@ -166,8 +168,8 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			break;
 		case wOpt:
 			printf("Benchmarking GA with Tournament selection and wopt (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
-			mingv = -32;
-			maxgv = 32;
+			mingv = -32.0f;
+			maxgv = 32.0f;
 			break;
 		default:
 			break;
@@ -286,6 +288,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			{
 				if (rand() < MUTRATE)
 				{
+					//Should i be checking bounds
 					float alter = RandomFloat(0.0, MUTSTEP);
 					if (rand() % 2) offspring[i].gene[j] = offspring[i].gene[j] + alter;
 					else offspring[i].gene[j] = offspring[i].gene[j] - alter;
@@ -323,22 +326,22 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction fitnessFunction, int numberOfRuns)
 {
 
-	switch (fitnessFunction)
+	/*switch (fitnessFunction)
 	{
 	case wOpt:
 	{
 		Individual i;
-		i.gene[0] = 1;
-		i.gene[1] = 2;
-		i.gene[2] = 3;
+		i.gene[0] = 1.0f;
+		i.gene[1] = 2.0f;
+		i.gene[2] = 3.0f;
 
 		float fitness = GenerateFitnessWopt(i);
-		printf("%d", fitness);
+		printf("%f", fitness);
 	}
 		
 	default:
 		break;
-	}
+	}*/
 
 
 	srand(time(NULL));
