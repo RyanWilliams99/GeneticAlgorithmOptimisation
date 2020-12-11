@@ -76,6 +76,7 @@ float GenerateFitnessWopt(Individual ind)
 	double exp1 = -0.2f * sqrt((1 / N) * firstSum);
 	rv = -20 * exp(exp1);
 
+
 	double exp2 = (1 / N) * secondSum;
 	rv -= exp(exp2);
 

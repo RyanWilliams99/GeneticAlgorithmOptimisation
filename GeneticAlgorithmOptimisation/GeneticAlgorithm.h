@@ -10,8 +10,8 @@ const int P = 50; //Population
 const int GENERATIONS = 50; //Generations
 
 const float MUTRATE = 1; 
-const float MINGENEVALUE = -5.12f;
-const float MAXGENEVALUE = 5.12f;
+//float MINGENEVALUE = -5.12f;
+//float MAXGENEVALUE = 5.12f;
 const float MUTSTEP = 5.12f; //????
 
 //Each individual
