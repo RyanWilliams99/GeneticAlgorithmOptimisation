@@ -169,8 +169,8 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		{
 		case WS3:
 			printf("Benchmarking GA with RW selection and ws3 (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
-			mingv = -5.12;
-			maxgv = 5.12;
+			mingv = -5.12f;
+			maxgv = 5.12f;
 
 			break;
 		case wOpt:
@@ -255,10 +255,6 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			
 		}
 
-		//std::cout << "Population" << std::endl;
-		//PrintPopulationFitness(population);
-
-
 		/////////////
 		//Selection//
 		/////////////
@@ -267,7 +263,6 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		case ROULETTE:
 		{
 
-			//HOW DOES THIS ERROR MAKE IT ONLY DO 1 GENERATION EACH RUN????????
 			for (int individual = 0; individual < P; individual++)
 			{
 				float selection_point = RandomFloat(0, GetPopulationFitness(population));
@@ -298,50 +293,50 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			break;
 		}
 
-		///////////////
-		////Crossover//
-		///////////////
-		//Individual temp;
-		//for (int i = 0; i < P; i += 2)
-		//{
-		//	temp = offspring[i];
-		//	int crosspoint = rand() % N;
-		//	for (int j = crosspoint; j < N; j++) 
-		//	{
-		//		offspring[i].gene[j] = offspring[i + 1].gene[j];
-		//		offspring[i + 1].gene[j] = temp.gene[j];
-		//	}
-		//}
+		/////////////
+		//Crossover//
+		/////////////
+		Individual temp;
+		for (int i = 0; i < P; i += 2)
+		{
+			temp = offspring[i];
+			int crosspoint = rand() % N;
+			for (int j = crosspoint; j < N; j++) 
+			{
+				offspring[i].gene[j] = offspring[i + 1].gene[j];
+				offspring[i + 1].gene[j] = temp.gene[j];
+			}
+		}
 
-		//////////////
-		////Mutation//
-		//////////////
-		//for (int i = 0; i < P; i++)
-		//{
-		//	for (int j = 0; j < N; j++)
-		//	{
-		//		if (RandomFloat(0.0f, MUTRATE) <= MUTRATE)
-		//		{
-		//			//Should i be checking bounds
-		//			float alter = RandomFloat(0.0, MUTSTEP);
-		//			if (rand() % 2) 
-		//			{
-		//				if (offspring[i].gene[j] + alter <= magv) //Dont let it outside bounds
-		//				{
-		//					offspring[i].gene[j] = offspring[i].gene[j] + alter;
-		//				}
-		//			}
-		//			else
-		//			{
-		//				if (offspring[i].gene[j] - alter <= mingv) //Dont let it outside bounds
-		//				{
-		//					offspring[i].gene[j] = offspring[i].gene[j] - alter;
-		//				}
-		//				
-		//			}
-		//		}
-		//	}
-		//}
+		////////////
+		//Mutation//
+		////////////
+		for (int i = 0; i < P; i++)
+		{
+			for (int j = 0; j < N; j++)
+			{
+				if (RandomFloat(0.0f, MUTRATE) <= MUTRATE)
+				{
+					//Should i be checking bounds
+					float alter = RandomFloat(0.0, MUTSTEP);
+					if (rand() % 2) 
+					{
+						if (offspring[i].gene[j] + alter <= magv) //Dont let it outside bounds
+						{
+							offspring[i].gene[j] = offspring[i].gene[j] + alter;
+						}
+					}
+					else
+					{
+						if (offspring[i].gene[j] - alter <= mingv) //Dont let it outside bounds
+						{
+							offspring[i].gene[j] = offspring[i].gene[j] - alter;
+						}
+						
+					}
+				}
+			}
+		}
 
 		//////////////////////////////////////
 		//Calculate and store fitness values//
