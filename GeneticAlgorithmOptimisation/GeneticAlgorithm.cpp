@@ -60,6 +60,28 @@ float GenerateFitnessWopt(Individual ind)
 	constexpr double pi = 3.14159265358979323846;
 
 	float firstSum = 0.0f;
+	float secondSum = 0.0f;
+
+	for (size_t i = 0; i < N; i++)
+	{
+		firstSum += ind.gene[i] * ind.gene[i];
+		secondSum += cos(2 * pi * ind.gene[i]);
+	}
+
+	rv = -20 * exp(-0.2 * sqrt(float((1 / float(N)) * firstSum)));
+
+	rv -= exp((1.0 / N) * secondSum);
+
+	return rv;
+
+
+
+
+
+	/*float rv = 0.0f;
+	constexpr double pi = 3.14159265358979323846;
+
+	float firstSum = 0.0f;
 	double secondSum = 0.0f;
 	double cosbit = 0.0f;
 
@@ -81,7 +103,9 @@ float GenerateFitnessWopt(Individual ind)
 	double exp2 = (1.0 / N) * secondSum;
 	rv -= exp(exp2);
 
-	return rv;
+	return rv;*/
+
+
 }
 
 
