@@ -43,7 +43,7 @@ void WriteCSV(std::string filename, std::vector<std::pair<std::string, std::vect
 }
 
 
-void WriteGAResultToCSV(SelectionType selectionType, GeneticAlgortihmResult gaResult)
+void WriteGAResultToCSV(SelectionType selectionType, FitnessFunction fitFunction, GeneticAlgortihmResult gaResult)
 {
 	printf("Writing results to csv...\n\n");
 	// current date/time based on current system
@@ -98,11 +98,36 @@ void WriteGAResultToCSV(SelectionType selectionType, GeneticAlgortihmResult gaRe
 	switch (selectionType)
 	{
 	case ROULETTE:
-
-		pathAndFilename = "../Output/" + std::to_string(seconds) + "Roulette.csv";
+		switch (fitFunction)
+		{
+		case WS3:
+			pathAndFilename = "../Output/RouletteWS3(ID" + std::to_string(seconds) + ").csv";
+			break;
+		case wOpt:
+			pathAndFilename = "../Output/RouletteWOPT(ID" + std::to_string(seconds) + ").csv";
+			break;
+		case BasicAdd:
+			pathAndFilename = "../Output/RouletteBasicAdd(ID" + std::to_string(seconds) + ").csv";
+			break;
+		default:
+			break;
+		}
 		break;
 	case TOURNAMENT:
-		pathAndFilename = "../Output/" + std::to_string(seconds) + "Tournament.csv";
+		switch (fitFunction)
+		{
+		case WS3:
+			pathAndFilename = "../Output/TournamentWS3(ID" + std::to_string(seconds) + ").csv";
+			break;
+		case wOpt:
+			pathAndFilename = "../Output/TournamentWOPT(ID" + std::to_string(seconds) + ").csv";
+			break;
+		case BasicAdd:
+			pathAndFilename = "../Output/TournamentBasicAdd(ID" + std::to_string(seconds) + ").csv";
+			break;
+		default:
+			break;
+		}
 		break;
 	default:
 		break;

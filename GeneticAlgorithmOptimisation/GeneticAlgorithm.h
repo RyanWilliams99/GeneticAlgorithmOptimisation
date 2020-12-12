@@ -9,10 +9,10 @@ const int N = 50; //Number of genes
 const int P = 50; //Population 
 const int GENERATIONS = 50; //Generations
 
-const float MUTRATE = 0.2; 
+const float MUTRATE = 1; 
 //float MINGENEVALUE = -5.12f;
 //float MAXGENEVALUE = 5.12f;
-const float MUTSTEP = 32.0f; //????
+const float MUTSTEP = 1.0f; //????
 
 //Each individual
 typedef struct {
@@ -36,7 +36,7 @@ typedef struct {
 
 enum SelectionType { ROULETTE, TOURNAMENT };
 
-enum FitnessFunction { WS3, wOpt };
+enum FitnessFunction { WS3, wOpt, BasicAdd};
 
 void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction fitnessFunction, int numberOfRuns);
 

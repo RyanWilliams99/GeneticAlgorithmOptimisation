@@ -121,10 +121,10 @@ float GetPopulationFitness(Individual population[])
 float GetBestFitnessInPopulation(Individual pop[])
 {
 
-	float returnValue = FLT_MAX;
+	float returnValue = 0.0f;
 	for (size_t i = 0; i < P; i++)
 	{
-		if (pop[i].fitness < returnValue)
+		if (pop[i].fitness > returnValue)
 			returnValue = pop[i].fitness;
 	}
 	return returnValue;
@@ -150,15 +150,15 @@ float GetMeanFitnessInPopulation(Individual pop[])
 /// <returns>
 /// Returns a list of GenerationResult objects, each one contains the mean and best fitness values
 /// </returns>
-GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessFunction fitnessFunction)
+GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessFunction fitnessFunction, float migv, float magv)
 {
 	GeneticAlgortihmResult returnValue;
 	std::vector<GenerationResult> generationResults;
 
 	//GA Result contains every generation and its mean fitness
 
-	float mingv = 0.0f;
-	float maxgv = 0.0f;
+	float mingv = migv;
+	float maxgv = magv;
 
 
 
@@ -178,6 +178,9 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			mingv = -32.0f;
 			maxgv = 32.0f;
 			break;
+		case BasicAdd:
+			printf("Benchmarking GA with RW selection and Basic Add (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
+			break;
 		default:
 			break;
 		}
@@ -194,6 +197,9 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			printf("Benchmarking GA with Tournament selection and wopt (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
 			mingv = -32.0f;
 			maxgv = 32.0f;
+			break;
+		case BasicAdd:
+			printf("Benchmarking GA with Tournament selection and Basic Add (Pop %d, Gene size %d, Generations %d, Mutation rate %f)...\n", P, N, GENERATIONS, MUTRATE);
 			break;
 		default:
 			break;
@@ -234,6 +240,9 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		{
 			switch (fitnessFunction)
 			{
+			case BasicAdd:
+				population[j].fitness = GenerateFitnessSimpleAdd(population[j]);
+				break;
 			case WS3:
 				population[j].fitness = GenerateFitnessWS3(population[j]);
 				break;
@@ -277,7 +286,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
 				int parent2 = rand() % P;
-				if (population[parent1].fitness < population[parent2].fitness)
+				if (population[parent1].fitness > population[parent2].fitness)
 					offspring[i] = population[parent1];
 				else
 					offspring[i] = population[parent2];
@@ -314,8 +323,21 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 				{
 					//Should i be checking bounds
 					float alter = RandomFloat(0.0, MUTSTEP);
-					if (rand() % 2) offspring[i].gene[j] = offspring[i].gene[j] + alter;
-					else offspring[i].gene[j] = offspring[i].gene[j] - alter;
+					if (rand() % 2) 
+					{
+						if (offspring[i].gene[j] + alter <= magv) //Dont let it outside bounds
+						{
+							offspring[i].gene[j] = offspring[i].gene[j] + alter;
+						}
+					}
+					else
+					{
+						if (offspring[i].gene[j] - alter <= mingv) //Dont let it outside bounds
+						{
+							offspring[i].gene[j] = offspring[i].gene[j] - alter;
+						}
+						
+					}
 				}
 			}
 		}
@@ -359,7 +381,7 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction
 
 	//Run GA numberOfRuns times, store result each time
 	for (size_t i = 0; i < numberOfRuns; i++)
-		result.push_back(RunGeneticAlgorithm(selectionType, fitnessFunction));
+		result.push_back(RunGeneticAlgorithm(selectionType, fitnessFunction, 0.0f, 1.0f));
 
 
 	printf("Averaging results for each generation...\n");
@@ -391,6 +413,6 @@ void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction
 
 	//write to console then csv
 	PrintGAResultToConsole(selectionType, allRunsAveraged);
-	WriteGAResultToCSV(selectionType, allRunsAveraged);
+	WriteGAResultToCSV(selectionType, fitnessFunction, allRunsAveraged);
 
 }
