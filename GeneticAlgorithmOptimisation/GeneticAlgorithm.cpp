@@ -17,7 +17,7 @@ float RandomFloat(float min, float max) {
 	return min + r;
 }
 
-float GenerateFitnessValues(Individual ind)
+float GenerateFitnessSimpleAdd(Individual ind)
 {
 	float fitness = 0;
 	for (int i = 0; i < N; i++)
@@ -349,24 +349,6 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 
 void TestGeneticAlgorithmLogResults(SelectionType selectionType, FitnessFunction fitnessFunction, int numberOfRuns)
 {
-
-	/*switch (fitnessFunction)
-	{
-	case wOpt:
-	{
-		Individual i;
-		i.gene[0] = 1.0f;
-		i.gene[1] = 2.0f;
-		i.gene[2] = 3.0f;
-
-		float fitness = GenerateFitnessWopt(i);
-		printf("%f", fitness);
-	}
-		
-	default:
-		break;
-	}*/
-
 
 	srand(time(NULL));
 
