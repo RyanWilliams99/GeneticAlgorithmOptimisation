@@ -17,6 +17,6 @@ int main()
 
 	//WOPT Function
 	//TestGeneticAlgorithmLogResults(ROULETTE, wOpt, 100);
-	TestGeneticAlgorithmLogResults(TOURNAMENT, wOpt, 100);
+	TestGeneticAlgorithmLogResults(TOURNAMENT, wOpt, 1);
 
 }

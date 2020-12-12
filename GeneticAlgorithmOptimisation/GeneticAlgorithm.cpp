@@ -272,7 +272,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			}
 
 		}
-		case TOURNAMENT:
+		case TOURNAMENT: //Needs modifing to tend to global minimum
 		{
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
