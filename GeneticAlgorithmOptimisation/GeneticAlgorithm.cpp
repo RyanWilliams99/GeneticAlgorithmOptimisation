@@ -319,7 +319,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		{
 			for (int j = 0; j < N; j++)
 			{
-				if (rand() < MUTRATE)
+				if (RandomFloat(0.0f, MUTRATE) <= MUTRATE)
 				{
 					//Should i be checking bounds
 					float alter = RandomFloat(0.0, MUTSTEP);

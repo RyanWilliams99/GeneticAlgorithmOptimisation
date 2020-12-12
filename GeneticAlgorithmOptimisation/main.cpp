@@ -13,7 +13,7 @@ int main()
 {
 	//BasicAdd Function
 	//TestGeneticAlgorithmLogResults(ROULETTE, BasicAdd, 100);
-	TestGeneticAlgorithmLogResults(TOURNAMENT, BasicAdd, 100);
+	TestGeneticAlgorithmLogResults(TOURNAMENT, BasicAdd, 1);
 
 	//WS3 Fitness function
 	//TestGeneticAlgorithmLogResults(ROULETTE, WS3, 1000);
