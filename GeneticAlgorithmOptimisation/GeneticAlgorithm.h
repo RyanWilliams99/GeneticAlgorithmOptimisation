@@ -5,14 +5,18 @@
 /// <summary>
 /// Accessible to other files
 /// </summary>
-const int N = 50; //Number of genes
+const int N = 10; //Number of genes
 const int P = 50; //Population 
-const int GENERATIONS = 500; //Generations
+const int GENERATIONS = 50; //Generations
 
 const float MUTRATE = 100; 
+const float MUTSTEP = 5.12f; //????
+
+
+
 //float MINGENEVALUE = -5.12f;
 //float MAXGENEVALUE = 5.12f;
-const float MUTSTEP = 1.0f; //????
+
 
 //Each individual
 typedef struct {

@@ -121,10 +121,10 @@ float GetPopulationFitness(Individual population[])
 float GetBestFitnessInPopulation(Individual pop[])
 {
 
-	float returnValue = 0.0f;
+	float returnValue = FLT_MAX;
 	for (size_t i = 0; i < P; i++)
 	{
-		if (pop[i].fitness > returnValue)
+		if (pop[i].fitness < returnValue)
 			returnValue = pop[i].fitness;
 	}
 	return returnValue;
@@ -286,7 +286,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			for (int i = 0; i < P; i++) {
 				int parent1 = rand() % P;
 				int parent2 = rand() % P;
-				if (population[parent1].fitness > population[parent2].fitness)
+				if (population[parent1].fitness < population[parent2].fitness)
 					offspring[i] = population[parent1];
 				else
 					offspring[i] = population[parent2];
@@ -298,49 +298,50 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			break;
 		}
 
-		/////////////
-		//Crossover//
-		/////////////
-		Individual temp;
-		for (int i = 0; i < P; i += 2)
-		{
-			temp = offspring[i];
-			int crosspoint = rand() % N;
-			for (int j = crosspoint; j < N; j++) {
-				offspring[i].gene[j] = offspring[i + 1].gene[j];
-				offspring[i + 1].gene[j] = temp.gene[j];
-			}
-		}
+		///////////////
+		////Crossover//
+		///////////////
+		//Individual temp;
+		//for (int i = 0; i < P; i += 2)
+		//{
+		//	temp = offspring[i];
+		//	int crosspoint = rand() % N;
+		//	for (int j = crosspoint; j < N; j++) 
+		//	{
+		//		offspring[i].gene[j] = offspring[i + 1].gene[j];
+		//		offspring[i + 1].gene[j] = temp.gene[j];
+		//	}
+		//}
 
-		////////////
-		//Mutation//
-		////////////
-		for (int i = 0; i < P; i++)
-		{
-			for (int j = 0; j < N; j++)
-			{
-				if (RandomFloat(0.0f, MUTRATE) <= MUTRATE)
-				{
-					//Should i be checking bounds
-					float alter = RandomFloat(0.0, MUTSTEP);
-					if (rand() % 2) 
-					{
-						if (offspring[i].gene[j] + alter <= magv) //Dont let it outside bounds
-						{
-							offspring[i].gene[j] = offspring[i].gene[j] + alter;
-						}
-					}
-					else
-					{
-						if (offspring[i].gene[j] - alter <= mingv) //Dont let it outside bounds
-						{
-							offspring[i].gene[j] = offspring[i].gene[j] - alter;
-						}
-						
-					}
-				}
-			}
-		}
+		//////////////
+		////Mutation//
+		//////////////
+		//for (int i = 0; i < P; i++)
+		//{
+		//	for (int j = 0; j < N; j++)
+		//	{
+		//		if (RandomFloat(0.0f, MUTRATE) <= MUTRATE)
+		//		{
+		//			//Should i be checking bounds
+		//			float alter = RandomFloat(0.0, MUTSTEP);
+		//			if (rand() % 2) 
+		//			{
+		//				if (offspring[i].gene[j] + alter <= magv) //Dont let it outside bounds
+		//				{
+		//					offspring[i].gene[j] = offspring[i].gene[j] + alter;
+		//				}
+		//			}
+		//			else
+		//			{
+		//				if (offspring[i].gene[j] - alter <= mingv) //Dont let it outside bounds
+		//				{
+		//					offspring[i].gene[j] = offspring[i].gene[j] - alter;
+		//				}
+		//				
+		//			}
+		//		}
+		//	}
+		//}
 
 		//////////////////////////////////////
 		//Calculate and store fitness values//
