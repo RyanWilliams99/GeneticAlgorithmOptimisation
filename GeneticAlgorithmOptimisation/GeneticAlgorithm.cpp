@@ -315,24 +315,24 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		{
 			for (int j = 0; j < N; j++)
 			{
-				if (RandomFloat(0.0f, MUTRATE) <= MUTRATE)
+				float chance = RandomFloat(0.0f, 100.0f); //MAX MUTRATE IS 100
+				if (chance <= MUTRATE)
 				{
 					//Should i be checking bounds
 					float alter = RandomFloat(0.0, MUTSTEP);
 					if (rand() % 2) 
 					{
-						if (offspring[i].gene[j] + alter <= magv) //Dont let it outside bounds
-						{
+						if (offspring[i].gene[j] + alter <= magv) //not going to go out of bounds
 							offspring[i].gene[j] = offspring[i].gene[j] + alter;
-						}
+						else 
+							offspring[i].gene[j] = maxgv; //Clip to max
 					}
 					else
 					{
 						if (offspring[i].gene[j] - alter <= mingv) //Dont let it outside bounds
-						{
 							offspring[i].gene[j] = offspring[i].gene[j] - alter;
-						}
-						
+						else
+							offspring[i].gene[j] = mingv; //Clip to min
 					}
 				}
 			}
