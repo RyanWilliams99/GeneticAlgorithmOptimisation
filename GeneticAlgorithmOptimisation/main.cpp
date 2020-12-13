@@ -16,8 +16,8 @@ int main()
 	//TestGeneticAlgorithmLogResults(ROULETTE, BasicAdd, 100);
 
 	//WS3 Fitness function
-	TestGeneticAlgorithmLogResults(TOURNAMENT, WS3, 100);
-	//TestGeneticAlgorithmLogResults(ROULETTE, WS3, 1000);
+	//TestGeneticAlgorithmLogResults(TOURNAMENT, WS3, 100);
+	TestGeneticAlgorithmLogResults(ROULETTE, WS3, 100);
 
 	//WOPT Function
 	//TestGeneticAlgorithmLogResults(TOURNAMENT, wOpt, 1);

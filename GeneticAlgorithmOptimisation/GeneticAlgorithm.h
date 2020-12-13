@@ -7,9 +7,9 @@
 /// </summary>
 const int N = 10; //Number of genes
 const int P = 50; //Population 
-const int GENERATIONS = 50; //Generations
+const int GENERATIONS = 500; //Generations
 
-const float MUTRATE = 1; 
+const float MUTRATE = 3; 
 const float MUTSTEP = 5.12f; //????
 
 
@@ -22,7 +22,7 @@ const float MUTSTEP = 5.12f; //????
 typedef struct {
 	float gene[N];
 	float fitness;
-	float adjustedFitness; //used for roulette wheel with minimisation function
+	//float adjustedFitness; //used for roulette wheel with minimisation function
 } Individual;
 
 //Each generation
