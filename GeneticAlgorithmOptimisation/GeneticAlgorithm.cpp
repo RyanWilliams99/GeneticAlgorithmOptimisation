@@ -122,19 +122,19 @@ float GetBestFitnessInPopulation(Individual pop[])
 {
 
 	float returnValue = FLT_MAX;
-	float wv;
+	//float wv;
 	for (size_t i = 0; i < P; i++)
 	{
-		//convert
-		wv = 0;
-		wv = pop[i].fitness;
-		if (wv < 0.0f)
-		{
-			wv = wv * -1;
-		}
+		////convert
+		//wv = 0;
+		//wv = pop[i].fitness;
+		//if (wv < 0.0f)
+		//{
+		//	wv = wv * -1;
+		//}
 
 
-		if (wv < returnValue)
+		if (pop[i].fitness < returnValue)
 		{
 			returnValue = pop[i].fitness;
 		}
@@ -292,27 +292,11 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		case TOURNAMENT: //Needs modifing to tend to global minimum
 		{
 			for (int i = 0; i < P; i++) {
+
 				int parent1 = rand() % P;
 				int parent2 = rand() % P;
-				float wv = 0.0f;
 
-				float fit1normalised = 0.0f;
-				float fit2normalised = 0.0f;
-
-
-				if (population[parent1].fitness < 0.0f)
-					fit1normalised = population[parent1].fitness * -1;
-				else
-					fit1normalised = population[parent1].fitness;
-
-
-				if (population[parent2].fitness < 0.0f)
-					fit2normalised = population[parent2].fitness * -1;
-				else
-					fit2normalised = population[parent2].fitness;
-
-
-				if (fit1normalised < fit2normalised)
+				if (population[parent1].fitness < population[parent2].fitness)
 					offspring[i] = population[parent1];
 				else
 					offspring[i] = population[parent2];

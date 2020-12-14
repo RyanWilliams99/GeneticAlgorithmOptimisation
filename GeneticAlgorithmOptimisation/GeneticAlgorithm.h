@@ -2,27 +2,18 @@
 
 #include <vector>
 
-/// <summary>
-/// Accessible to other files
-/// </summary>
+
 const int N = 10; //Number of genes
-const int P = 50; //Population 
+const int P = 500; //Population 
 const int GENERATIONS = 50; //Generations
 
 const float MUTRATE = 3; 
-const float MUTSTEP = 32; //????
-
-
-
-//float MINGENEVALUE = -5.12f;
-//float MAXGENEVALUE = 5.12f;
-
+const float MUTSTEP = 1; 
 
 //Each individual
 typedef struct {
 	float gene[N];
 	float fitness;
-	//float adjustedFitness; //used for roulette wheel with minimisation function
 } Individual;
 
 //Each generation
