@@ -5,7 +5,7 @@
 
 const int N = 10; //Number of genes
 const int P = 10000; //Population 
-const int GENERATIONS = 10000; //Generations
+const int GENERATIONS = 5000; //Generations
 
 //Percent chance eg 0.3 = 30% chance to mutate
 const float MUTRATE = 0.01; 
