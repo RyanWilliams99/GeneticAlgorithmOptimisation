@@ -4,11 +4,12 @@
 
 
 const int N = 10; //Number of genes
-const int P = 500; //Population 
-const int GENERATIONS = 500; //Generations
+const int P = 10000; //Population 
+const int GENERATIONS = 10000; //Generations
 
-const float MUTRATE = 3; 
-const float MUTSTEP = 1; 
+//Percent chance eg 0.3 = 30% chance to mutate
+const float MUTRATE = 0.01; 
+const float MUTSTEP = 0.1; 
 
 //Each individual
 typedef struct {

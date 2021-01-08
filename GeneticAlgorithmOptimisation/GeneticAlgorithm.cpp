@@ -289,7 +289,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 			}
 
 		}
-		case TOURNAMENT: //Needs modifing to tend to global minimum
+		case TOURNAMENT: 
 		{
 			for (int i = 0; i < P; i++) {
 
@@ -330,7 +330,7 @@ GeneticAlgortihmResult RunGeneticAlgorithm(SelectionType selectionType, FitnessF
 		{
 			for (int j = 0; j < N; j++)
 			{
-				float chance = RandomFloat(0.0f, 100.0f); //MAX MUTRATE IS 100
+				float chance = RandomFloat(0.0f, 1.0f); //MAX MUTRATE IS 100
 				if (chance <= MUTRATE)
 				{
 					//Should i be checking bounds

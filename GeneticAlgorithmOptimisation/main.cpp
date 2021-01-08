@@ -12,14 +12,14 @@
 int main()
 {
 	//BasicAdd Function
-	//TestGeneticAlgorithmLogResults(TOURNAMENT, BasicAdd, 1);
+	//TestGeneticAlgorithmLogResults(TOURNAMENT, BasicAdd, 100);
 	//TestGeneticAlgorithmLogResults(ROULETTE, BasicAdd, 100);
 
 	//WS3 Fitness function
-	//TestGeneticAlgorithmLogResults(TOURNAMENT, WS3, 100);
+	TestGeneticAlgorithmLogResults(TOURNAMENT, WS3, 10);
 	//TestGeneticAlgorithmLogResults(ROULETTE, WS3, 100);
 
 	//WOPT Function
-	TestGeneticAlgorithmLogResults(TOURNAMENT, wOpt, 100);
+	//TestGeneticAlgorithmLogResults(TOURNAMENT, wOpt, 100);
 	//TestGeneticAlgorithmLogResults(ROULETTE, wOpt, 100);
 }
