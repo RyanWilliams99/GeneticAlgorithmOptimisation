@@ -3,13 +3,12 @@
 #include <vector>
 
 
-const int N = 10; //Number of genes
-const int P = 10000; //Population 
-const int GENERATIONS = 5000; //Generations
+const int N = ; //Number of genes
+const int P = 500; //Population 
+const int GENERATIONS = 500; //Generations
 
-//Percent chance eg 0.3 = 30% chance to mutate
 const float MUTRATE = 0.01; 
-const float MUTSTEP = 0.1; 
+const float MUTSTEP = 0.01; 
 
 //Each individual
 typedef struct {
