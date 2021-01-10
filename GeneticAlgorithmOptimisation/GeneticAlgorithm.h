@@ -3,7 +3,7 @@
 #include <vector>
 
 
-const int N = ; //Number of genes
+const int N = 1000; //Number of genes
 const int P = 500; //Population 
 const int GENERATIONS = 500; //Generations
 
