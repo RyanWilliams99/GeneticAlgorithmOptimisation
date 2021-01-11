@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <StackReserveSize>4194304</StackReserveSize>
+      <StackReserveSize>67108864</StackReserveSize>
       <StackCommitSize>
       </StackCommitSize>
     </Link>
@@ -127,7 +127,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <StackReserveSize>4194304</StackReserveSize>
+      <StackReserveSize>67108864</StackReserveSize>
       <StackCommitSize>
       </StackCommitSize>
     </Link>
@@ -144,7 +144,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <StackReserveSize>4194304</StackReserveSize>
+      <StackReserveSize>67108864</StackReserveSize>
       <StackCommitSize>
       </StackCommitSize>
     </Link>
@@ -165,7 +165,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <StackReserveSize>4194304</StackReserveSize>
+      <StackReserveSize>67108864</StackReserveSize>
       <StackCommitSize>
       </StackCommitSize>
     </Link>

@@ -3,9 +3,9 @@
 #include <vector>
 
 
-const int N = 1000; //Number of genes
-const int P = 500; //Population 
-const int GENERATIONS = 500; //Generations
+const int N = 500; //Number of genes
+const int P = 5000; //Population 
+const int GENERATIONS = 5000; //Generations
 
 const float MUTRATE = 0.01; 
 const float MUTSTEP = 0.01; 
