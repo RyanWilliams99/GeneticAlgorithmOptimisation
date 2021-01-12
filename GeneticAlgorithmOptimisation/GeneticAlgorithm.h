@@ -4,11 +4,11 @@
 
 
 const int N = 500; //Number of genes
-const int P = 5000; //Population 
-const int GENERATIONS = 5000; //Generations
+const int P = 25000; //Population 
+const int GENERATIONS = 500; //Generations
 
 const float MUTRATE = 0.01; 
-const float MUTSTEP = 0.01; 
+const float MUTSTEP = 0.1; 
 
 //Each individual
 typedef struct {
